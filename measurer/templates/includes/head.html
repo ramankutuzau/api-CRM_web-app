@@ -1,0 +1,93 @@
+{% load static %}
+<head>
+    <link rel="icon" type="image/png" href="{% static '/assets/fav.png' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta charset="utf-8"/>
+    <title> R2D2 </title>
+    <link rel="stylesheet" href="{% static 'bootstrap-5.0.2-dist/css/bootstrap.css' %}">
+    <script src="{% static 'bootstrap-5.0.2-dist/js/bootstrap.bundle.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        {% if form == "windowsill" %}
+
+        $(document).ready(function () {
+            $("#windowsillCalcModal").modal('show');
+        });
+
+        {% elif form == "low-tides" %}
+
+        $(document).ready(function () {
+            $("#lowTidesCalcModal").modal('show');
+        });
+
+        {% elif form == "additional-profile" %}
+
+        $(document).ready(function () {
+            $("#additionalProfileCalcModal").modal('show');
+        });
+
+        {% elif form == "connection-profile" %}
+
+        $(document).ready(function () {
+            $("#connectionProfileCalcModal").modal('show');
+        });
+        {% elif form == "visors" %}
+
+        $(document).ready(function () {
+            $("#visorsCalcModal").modal('show');
+        });
+
+        {% elif form == "flashing" %}
+
+        $(document).ready(function () {
+            $("#flashingCalcModal").modal('show');
+        });
+
+        {% elif form == "casing" %}
+
+        $(document).ready(function () {
+            $("#casingCalcModal").modal('show');
+        });
+
+        {% elif form == "slopes-of-metal" %}
+
+        $(document).ready(function () {
+            $("#slopesOfMetalCalcModal").modal('show');
+        });
+
+        {% elif form == "internal-slopes" %}
+
+        $(document).ready(function () {
+            $("#internalSlopesCalcModal").modal('show');
+        });
+
+        {% elif form == "mounting-materials" %}
+
+        $(document).ready(function () {
+            $("#mountingMaterialsCalcModal").modal('show');
+        });
+
+        {% elif form == "works" %}
+
+        $(document).ready(function () {
+            $("#worksModal").modal('show');
+        });
+
+        {% elif form == "products" %}
+
+        $(document).ready(function () {
+            $("#productsCalcModal").modal('show');
+        });
+
+         {% elif form == "contract" %}
+
+        $(document).ready(function () {
+            $("#contractModal").modal('show');
+        });
+
+        {% endif %}
+    </script>
+</head>

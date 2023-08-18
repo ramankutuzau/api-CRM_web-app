@@ -1,0 +1,404 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru" style="font-size:18px">
+
+{% include 'includes/head.html' %}
+
+<body class="g-sidenav-show" style="background: #F7F7F8;">
+
+<!-- Navbar -->
+<div class="container-fluid">
+    <div class="card card-body blur shadow-blur mt-4">
+
+        <div class="row gx-4">
+
+                <div class="col-auto">
+                <a href="/welcome-page/">
+
+                    <div class="avatar avatar-xl position-relative">
+                        <img src="{% static '/assets/img/logo.png' %}" alt="profile_image"
+                             style="width:120px">
+                    </div>
+                </a>
+                </div>
+
+            <div class="col-auto my-auto">
+                <div class="h-100">
+                    <h5 class="mb-1">
+                        {{ user.first_name |default:user.username }} {{ user.last_name}}
+                    </h5>
+                    {% if client_id %}
+                    <a  class="btn btn-outline-dark" href="/client/{{ client_id }}">Kарточка клиента
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
+                <div class="nav-wrapper position-relative end-0">
+                    <ul class="nav nav-pills nav-fill p-1 bg-transparent" role="tablist">
+                        <li class="nav-item row">
+
+                            <div class="col d-flex justify-content-end">
+                                <a href="/miscalculation/{{ miscalc_pk}}/">
+                                    <button class="nav-link mb-0 px-0 py-1 mt-1"
+                                            style="width:204px;background-color:black; color:white">
+                                        <svg width="17" height="20" viewBox="0 0 17 20" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M15.1176 8.65V5.32C15.1176 3.80786 15.1176 3.05179 14.8291 2.47423C14.5754 1.96619 14.1704 1.55314 13.6723 1.29428C13.1061 1 12.3648 1 10.8824 1H5.23529C3.7528 1 3.01156 1 2.44532 1.29428C1.94724 1.55314 1.54229 1.96619 1.28851 2.47423C1 3.05179 1 3.80786 1 5.32V14.68C1 16.1921 1 16.9482 1.28851 17.5258C1.54229 18.0338 1.94724 18.4469 2.44532 18.7057C3.01156 19 3.7528 19 5.23529 19H8.05882M9.82353 9.1H4.52941M6.29412 12.7H4.52941M11.5882 5.5H4.52941M13.3529 18.1V12.7M10.7059 15.4H16"
+                                                  stroke="white" stroke-width="2" stroke-linecap="round"
+                                                  stroke-linejoin="round"/>
+                                        </svg>
+
+                                        <span class="ms-1">Сохранить</span>
+                                    </button>
+
+                                </a>
+                            </div>
+<!--                            <div class="col-5">-->
+
+                                {% if user.is_authenticated %}
+<!--                                <a href="/welcome-page/">-->
+<!--                                    <button class="nav-link mb-0 px-0 py-1 mt-1"-->
+<!--                                            style="background: #797979;color: white;">-->
+<!--                                        В меню-->
+<!--                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"-->
+<!--                                             fill="currentColor"-->
+<!--                                             class="bi bi-box-arrow-right" viewBox="0 0 16 16">-->
+<!--                                            <path fill-rule="evenodd"-->
+<!--                                                  d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>-->
+<!--                                            <path fill-rule="evenodd"-->
+<!--                                                  d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>-->
+<!--                                        </svg>-->
+<!--                                    </button>-->
+<!--                                </a>-->
+                                {% endif %}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div >
+
+<!-- End Navbar -->
+
+<!--   Core JS Files   -->
+<div class="container-fluid" style="margin-top: -40px;">
+    <div class="col-12">
+        <div class="col-md-12 mb-lg-0 mb-4">
+            <div class="card mt-4" style="border: 0 !important;background: #F7F7F8;">
+                <div class="container-fluid py-4">
+                    <div class="row">
+                        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4"
+                                             data-bs-target="#productsCalcModal"
+                                             data-bs-toggle="modal"
+                                             data-bs-dismiss="modal">
+                            <div class="card">
+                                <div class="card-body p-3">
+                                    <div class="row">
+                                        <div class="col-4 justify-center">
+                                            <img width="65" class="logo_image"
+                                                 src="{% static '/assets/img/windows_logo.png' %}"
+                                                 alt="logo_image">
+
+                                        </div>
+
+                                        <div class="col justify-center">
+                                            <div class="col justify-center">
+                                                <p class="card__title">Изделия</p>
+                                            </div>
+                                            <div class="col justify-center" style="margin-top: -10px">
+                                                <h5 class="card__body">
+                                                    {{ order.sum_windows_byn | default:'0' }} BYN
+                                                </h5>
+                                            </div>
+                                        </div>
+
+                                        <hr class="horizontal text-muted">
+
+                                        <div class="d-flex align-center" style="gap: 20px; cursor: pointer">
+                                            <img style="align-self: center; width:18px; margin-top: 5px"
+                                                 src="{% static '/assets/img/change_icon.png' %}" alt="">
+                                            <p style="align-self: center;height: 22px;" class="change-button">
+                                                Изменить
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4"
+                                             data-bs-target="#materialsCalcModal"
+                                             data-bs-toggle="modal"
+                                             data-bs-dismiss="modal">
+                            <div class="card">
+                                <div class="card-body p-3">
+                                    <div class="row">
+                                        <div class="col-5 justify-center">
+                                            <img width="50" class="logo_image"
+                                                 src="{% static '/assets/img/materials_logo.png' %}" alt="logo_image">
+                                        </div>
+
+                                        <div class="col">
+                                            <div class="col justify-center ">
+                                                <p class="card__title">Материалы</p>
+                                            </div>
+                                            <div class="col justify-center" style="margin-top: -10px">
+                                                <h5 class="card__body">
+                                                    {{ order.sum_materials_byn | default:'0' }} BYN
+                                                </h5>
+                                            </div>
+                                        </div>
+
+                                        <hr class="horizontal text-muted">
+
+                                        <div class="d-flex align-center" style="gap: 20px; cursor: pointer">
+                                            <img style="align-self: center; width:18px; margin-top: 5px"
+                                                 src="{% static '/assets/img/change_icon.png' %}" alt="">
+                                            <p style="align-self: center;height: 22px;" class="change-button">
+                                                Изменить
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4"  data-bs-target="#worksModal"
+                                             data-bs-toggle="modal"
+                                             data-bs-dismiss="modal">
+                            <div class="card">
+                                <div class="card-body p-3">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <img width="55" class="logo_image"
+                                                 src="{% static '/assets/img/work_logo.png' %}"
+                                                 alt="logo_image">
+                                        </div>
+
+                                        <div class="col">
+                                            <div class="col justify-center">
+                                                <p class="card__title">Работы</p>
+                                            </div>
+
+                                            <div class="col justify-center" style="margin-top: -10px">
+                                                <h5 class="card__body">
+                                                    {{ works_other_sum }} BYN
+                                                </h5>
+                                            </div>
+                                        </div>
+
+                                        <hr class="horizontal text-muted">
+
+                                        <div class="d-flex align-center" style="gap: 20px; cursor: pointer">
+                                            <img style="align-self: center; width:18px; margin-top: 5px"
+                                                 src="{% static '/assets/img/change_icon.png' %}" alt="">
+                                            <p style="align-self: center;height: 22px;" class="change-button">
+                                                Изменить
+                                            </p>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4"
+                                            data-bs-target="#contractModal"
+                                             data-bs-toggle="modal"
+                                             data-bs-dismiss="modal">
+                            <div class="card">
+                                <div class="card-body p-3">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <img width="60" class="logo_image"
+                                                 src="{% static '/assets/img/info_logo.png' %}"
+                                                 alt="logo_image">
+                                        </div>
+
+                                        <div class="col">
+                                            <div class="col justify-center">
+                                                <p class="card__title">Информация</p>
+                                            </div>
+
+                                            <div class="col justify-center" style="margin-top: -10px">
+                                                <h5 class="card__body">
+                                                   Приложение
+
+                                                </h5>
+                                            </div>
+                                        </div>
+
+                                        <hr class="horizontal text-muted">
+
+                                        <div class="d-flex align-center" style="gap: 20px; cursor: pointer">
+                                            <img style="align-self: center; width:18px; margin-top: 5px"
+                                                 src="{% static '/assets/img/change_icon.png' %}" alt="">
+                                            <p style="align-self: center;height: 22px;" class="change-button">
+                                                Изменить
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="modalEditOrder" aria-hidden="true"
+                     aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title"> Контактные данные</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+
+                            <div class="modal-body">
+                                <form method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+
+                                    <div class="row">
+                                        {{ form_order}}
+                                    </div>
+                                    <button type="submit" class="btn btn-success mt-2" style="width:100%">Сохранить
+                                    </button>
+
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+
+                                <button class="btn btn-primary" data-bs-dismiss="modal">Закрыть
+                                </button>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col">
+    <div class="card-body pt-0 p-3 mt-5 text-center">
+        <h5 class="mb-0" style="color:black">Сумма:
+        {{ order.sum_byn }} BYN</h5>
+        </div>
+</div>
+<div class="modal fade" id="positionAddModal" aria-hidden="true"
+     aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Добавление позиции</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <button class="btn bg-gradient-primary mb-2 col-12"
+                        data-bs-target="#productsCalcModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Изделия
+                </button>
+                <button class="btn bg-gradient-primary mb-2 col-12"
+                        data-bs-target="#selectMaterialsModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Материалы
+                </button>
+                <button class="btn btn-outline-primary btn-xl mb-0 col-lg-12 m-2"
+                        data-bs-target="#worksCalcModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Работы
+                </button>
+
+
+            </div>
+            <div class="modal-footer">
+
+                <button class="btn btn-dark"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть
+                </button>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modals">
+    {% include 'includes/materials_modals.html' %}
+    {% include 'includes/products_modals.html' %}
+    {% include 'includes/works_modals.html' %}
+    {% include 'includes/contract_modal.html' %}
+</div>
+</body>
+
+<script>
+<!--    let form = document.getElementById('form'); // selecting the form-->
+
+<!--    form.addEventListener('submit', function (event) { // 1-->
+<!--        event.preventDefault()-->
+
+<!--        let data = new FormData(); // 2-->
+
+<!--        data.append("title", document.getElementById('title').value)-->
+<!--        data.append("note", document.getElementById('note').value)-->
+<!--        data.append("csrfmiddlewaretoken", '{{csrf_token}}') // 3-->
+
+<!--        axios.post('', data) // 4-->
+<!--            .then(res => alert("Form Submitted")) // 5-->
+<!--            .catch(errors => console.log(errors)) // 6-->
+
+<!--    })-->
+
+
+</script>
+
+<script>
+  const mapSelectToPlug = (selectId, plugId) => {
+    const select = document.getElementById(selectId);
+    const plug = document.getElementById(plugId);
+    select.addEventListener("change", () => {
+      plug.value = select.value;
+    });
+  }
+
+  mapSelectToPlug("windowsill-select", "windowsill-plug-select");
+  mapSelectToPlug("low-tides-select", "low-tides-plug-select");
+</script>
+
+
+<style>
+    .change-button {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 22px;
+        color: #9A9A9A;
+
+        margin-top: -10px;
+        margin-bottom: -15px;
+    }
+    .btn-save{
+      color: white;
+      background-color: black;
+      border-color: black;
+    }
+    .btn-save:hover {
+      color: black;
+      background-color: white;
+      border-color: black;
+    }
+
+</style>
+
+</html>
+
+

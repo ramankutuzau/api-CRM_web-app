@@ -1,0 +1,564 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru" style="font-size:18px;">
+
+{% include 'includes/head.html' %}
+
+
+<body class="g-sidenav-show  bg-gray-100">
+
+
+<div class="container-fluid">
+    <div class="card card-body blur shadow-blur mt-4">
+        <div class="row gx-4">
+                <div class="col-auto">
+                <a href="/welcome-page/">
+
+                    <div class="avatar avatar-xl position-relative">
+                        <img src="{% static '/assets/img/logo.png' %}" alt="profile_image"
+                             style="width:120px">
+                    </div>
+                </a>
+                </div>
+
+            <div class="col-auto my-auto">
+                <div class="h-100">
+                    <h5 class="mb-1">
+                        {{ user.first_name |default:user.username }} {{ user.last_name}}
+                    </h5>
+                    {% if client_id %}
+                    <a  class="btn btn-outline-dark" href="/client/{{ client_id }}">Kарточка клиента
+                    </a>
+                    {% endif %}
+
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
+                <div class="nav-wrapper position-relative end-0">
+                    <ul class="nav nav-pills nav-fill p-1 bg-transparent" role="tablist">
+                        <li class="nav-item row">
+                            <div class="col d-flex justify-content-end row">
+                                <a class=" btn btn-save  m-2 mb-0 px-0 py-1 mt-1" style="max-width: 205px"
+                                        href="/miscalculation/{{ contract.pk }}/contract/">
+                                    <span>Договор</span>
+                                 </a>
+                                <a class=" btn btn-save  m-2 mb-0 px-0 py-1 mt-1" style="max-width: 205px"
+                                        href="/miscalculation/{{ miscalc_pk }}/contract-offer/">
+                                    <span>Приложение №1</span>
+                                 </a>
+                                 <a class=" btn btn-save  m-2 mb-0 px-0 py-1 mt-1" style="max-width: 205px"
+                                        href="/miscalculation/{{ miscalc_pk }}/commercial_offer/">
+                                    <span>Печать</span>
+                                 </a>
+                                <a class=" btn btn-save m-2 mb-0 px-0 py-1 mt-1" style="max-width: 205px"
+                                        href="/miscalculation/{{ miscalc_pk }}/send-to-manager/">
+                                    <span>Отправить на просчет</span>
+                                 </a>
+                                 <button class="btn btn-save nav-link m-2 mb-0 px-0 py-1 mt-1"
+                                                style="width:204px;background-color:black; color:white"
+                                                aria-selected="false" data-bs-target="#addCostModal"
+                                                data-bs-toggle="modal" data-bs-dismiss="modal">
+                                            <span class="ms-1">Скрытый расход</span>
+                                </button>
+                                <button class="nav-link m-2 mb-0 px-0 py-1 mt-1"
+                                                style="width:204px;background-color:black; color:white"
+                                                aria-selected="false" data-bs-target="#formOrder"
+                                                data-bs-toggle="modal" data-bs-dismiss="modal">
+                                            <svg class="text-white" width="16px" height="16px" color="white" viewBox="0 0 40 44"
+                                                 version="1.1"
+                                                 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                    <g transform="translate(-1870.000000, -591.000000)" fill="#FFFFFF"
+                                                       fill-rule="nonzero">
+                                                        <g transform="translate(1716.000000, 291.000000)">
+                                                            <g transform="translate(154.000000, 300.000000)">
+                                                                <path class="color-background"
+                                                                      d="M40,40 L36.3636364,40 L36.3636364,3.63636364 L5.45454545,3.63636364 L5.45454545,0 L38.1818182,0 C39.1854545,0 40,0.814545455 40,1.81818182 L40,40 Z"
+                                                                      opacity="0.603585379"></path>
+                                                                <path class="color-background"
+                                                                      d="M30.9090909,7.27272727 L1.81818182,7.27272727 C0.814545455,7.27272727 0,8.08727273 0,9.09090909 L0,41.8181818 C0,42.8218182 0.814545455,43.6363636 1.81818182,43.6363636 L30.9090909,43.6363636 C31.9127273,43.6363636 32.7272727,42.8218182 32.7272727,41.8181818 L32.7272727,9.09090909 C32.7272727,8.08727273 31.9127273,7.27272727 30.9090909,7.27272727 Z M18.1818182,34.5454545 L7.27272727,34.5454545 L7.27272727,30.9090909 L18.1818182,30.9090909 L18.1818182,34.5454545 Z M25.4545455,27.2727273 L7.27272727,27.2727273 L7.27272727,23.6363636 L25.4545455,23.6363636 L25.4545455,27.2727273 Z M25.4545455,20 L7.27272727,20 L7.27272727,16.3636364 L25.4545455,16.3636364 L25.4545455,20 Z">
+                                                                </path>
+                                                            </g>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </svg>
+
+                                            <span class="ms-1">Добавить позицию</span>
+
+                                        </button>
+
+
+                            </div>
+<!--                            <div class="col-5">-->
+
+<!--                                {% if user.is_authenticated %}-->
+<!--&lt;!&ndash;                                <a href="/welcome-page/">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <button class="nav-link mb-0 px-0 py-1 mt-1"&ndash;&gt;-->
+<!--&lt;!&ndash;                                            style="background: #797979;color: white;">&ndash;&gt;-->
+<!--&lt;!&ndash;                                        В меню&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"&ndash;&gt;-->
+<!--&lt;!&ndash;                                             fill="currentColor"&ndash;&gt;-->
+<!--&lt;!&ndash;                                             class="bi bi-box-arrow-right" viewBox="0 0 16 16">&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <path fill-rule="evenodd"&ndash;&gt;-->
+<!--&lt;!&ndash;                                                  d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <path fill-rule="evenodd"&ndash;&gt;-->
+<!--&lt;!&ndash;                                                  d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        </svg>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </button>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </a>&ndash;&gt;-->
+<!--                                {% endif %}-->
+<!--                            </div>-->
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div >
+
+<div class="card-body px-0 pt-0 pb-2 ">
+               <div class="p-4 col-12 ">
+  <div class="row">
+    <div class="col">
+      <strong>Номер телефона:</strong>
+      <a href="tel:{{ miscalculation.phone }}">{{ miscalculation.phone }}</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <strong>Имя клиента:</strong>
+      {{ miscalculation.name }}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <strong>Адрес:</strong> Область: {{ miscalculation.region }};
+      Район: {{ miscalculation.area }};
+      Населенный пункт: {{ miscalculation.location }};
+      Улица: {{ miscalculation.address }};
+      Дом: {{ miscalculation.house }};
+      Этаж: {{ miscalculation.floor }};
+      Кв: {{ miscalculation.flat }};
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <strong>Статус:</strong>
+      {% if miscalculation.status == 'активный' %}
+        <span class="badge bg-success">Активный</span>
+      {% elif miscalculation.status == 'отправить на просчёт' %}
+        <span class="badge bg-primary">Отправлен на просчет</span>
+      {% elif miscalculation.status == 'процесс просчёта' %}
+        <span class="badge bg-warning text-dark">Процесс просчёта</span>
+      {% elif miscalculation.status == 'просчёт произведён' %}
+        <span class="badge bg-secondary">Просчёт произведён</span>
+      {% elif miscalculation.status == 'запланирован' %}
+        <span class="badge bg-warning text-dark">Запланирован</span>
+      {% elif miscalculation.status == 'выполнен' %}
+        <span class="badge bg-danger">Выполнен</span>
+      {% else %}
+        {{ miscalculation.status }}
+      {% endif %}
+    </div>
+  </div>
+</div>
+    <div class="card card-body container col-xl-3 col-12">
+        <button id="toggle-btn" class="btn btn-save">Паспортные данные</button>
+        <div id="toggle-block" class="hidden" >
+            <form method="POST" action="/miscalculation/{{ miscalc_pk }}/save-passport/{{ miscalculation.client.passport_details.pk }}">
+                {% csrf_token %}
+         {{ passport }}
+            <button type="submit" class="btn btn-success">Сохранить</button>
+            </form>
+        </div>
+
+
+        </div>
+    </div>
+  <div class="card card-body container col-xl-3 col-12">
+        <button id="toggle-btn-1" class="btn btn-save">Договор</button>
+        <div id="toggle-block-1" class="hidden-1">
+           <form method="POST" action="/miscalculation/{{ miscalc_pk }}/save-contract/{{ miscalculation.contract.pk }}">
+                {% csrf_token %}
+                {{ contract_form }}
+                <button type="submit" class="btn btn-success">Сохранить</button>
+            </form>
+
+        </div>
+
+
+        </div>
+    </div>
+<!-- End Navbar -->
+<div class="container-fluid py-4 col-12 ">
+    <div class="col-12">
+        <div class="card mb-4">
+            <div class="card-header pb-0">
+                <h4> Просчеты</h4>
+            </div>
+            <div class="card-body px-0 pt-0 pb-2">
+                <table class="responsive" style="background:white">
+                    <thead>
+                    <tr>
+                        <th scope="col">Помещение</th>
+                        <th scope="col">Изделия</th>
+                        <th scope="col">Материалы</th>
+                        <th scope="col">Работы</th>
+                        <th scope="col">Прочие расходы</th>
+                        <th scope="col">Общая сумма (BYN)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for el in orders %}
+                    <tr class='clickable-row' data-href="/miscalculation/{{ miscalc_pk }}/{{ el.pk }}/None/" style="background:white">
+                        <td data-table-header="Помещение">{{ el.room }}</td>
+                        <td data-table-header="Изделия">{{ el.sum_windows_byn }}</td>
+                        <td data-table-header="Материалы">{{ el.sum_materials_byn }}</td>
+                        <td data-table-header="Работы">{{ el.sum_works_byn }}</td>
+                        <td data-table-header="Прочие расходы">{{ el.sum_other_byn }}</td>
+                        <td data-table-header="Общая сумма (BYN)" >{{ el.sum_byn }}</td>
+                        <td><form method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+
+                                <input type="text" class="form-control mt-2 mb-2"
+                                       placeholder="id_order"
+                                       name="id_order" value="{{ el.pk }}" style="display:none">
+
+                                <button class="btn btn-save shadow-none delete text-gradient"
+                                        href="javascript:;"
+                                        type="submit">
+                                    <span>Удалить</span>
+
+<!--                                    <svg width="16" height="18" viewBox="0 0 16 18" fill="none"-->
+<!--                                         xmlns="http://www.w3.org/2000/svg">-->
+<!--                                        <path d="M11.1111 4.2V3.56C11.1111 2.66392 11.1111 2.21587 10.9416 1.87362C10.7924 1.57256 10.5545 1.32779 10.2618 1.17439C9.92901 1 9.49342 1 8.62222 1H7.37778C6.50658 1 6.07099 1 5.73824 1.17439C5.44554 1.32779 5.20757 1.57256 5.05843 1.87362C4.88889 2.21587 4.88889 2.66392 4.88889 3.56V4.2M6.44444 8.6V12.6M9.55556 8.6V12.6M1 4.2H15M13.4444 4.2V13.16C13.4444 14.5041 13.4444 15.1762 13.1901 15.6896C12.9664 16.1412 12.6095 16.5083 12.1704 16.7384C11.6713 17 11.0179 17 9.71111 17H6.28889C4.9821 17 4.32871 17 3.82958 16.7384C3.39053 16.5083 3.03358 16.1412 2.80987 15.6896C2.55556 15.1762 2.55556 14.5041 2.55556 13.16V4.2"-->
+<!--                                              stroke="white" stroke-width="2" stroke-linecap="round"-->
+<!--                                              stroke-linejoin="round"/>-->
+<!--                                    </svg>-->
+                                </button>
+                            </form></td>
+                    </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+                <div class="col row">
+
+                    <div class="card-body pt-0 p-3 mt-5 text-center">
+                        <h5 class="mb-0" style="color:black">Сумма:
+                        {{ miscalculation.total_cost }} BYN ( скрытый: {{ miscalculation.hidden_cost }} BYN )</h5>
+                    <button class="btn btn-save mt-2"><a href="/miscalculation/{{ miscalculation.pk }}/confirm-order/" style="text-decoration: none;">Выполнить</a></button>
+                    <button class="btn btn-save mt-2"><a href="/reset-hidden-cost-miscalculation/{{ miscalculation.pk }}/" style="text-decoration: none;">Сбросить скрытый</a></button>
+
+
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="container container-fluid card card-body">
+{% if miscalculation.comment %}
+    <h5>Комментарий от менеджера</h5>
+    <p> {{ miscalculation.comment }}</p>
+    {% endif %}
+        </div>
+</div>
+
+<div class="card-body pt-4 p-3">
+    <div class="modal fade" id="formOrder" aria-hidden="true"
+         tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalToggleLabel"> Замер</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div class="row">
+                            {{ form_order }}
+                            {{ error }}
+                        </div>
+                        <button type="submit" class="btn btn-save mt-2" style="width:100%">Сохранить</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+
+                    <button class="btn btn-save" data-bs-target="#exampleModalToggle2"
+                            data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть
+                    </button>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+<div class="card-body pt-4 p-3">
+    <div class="modal fade" id="addCostModal" aria-hidden="true"
+         tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" > Скрытый расход</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <form method="get" id="cost-form"  enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                            <input class="form-control" id="add-cost-input" required>
+                        </div>
+                        <button type="submit" class="btn btn-save mt-2" style="width:100%">Пересчитать</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+
+                    <button class="btn btn-save" data-bs-target="#exampleModalToggle2"
+                            data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть
+                    </button>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
+
+<style>
+
+.hidden {
+  display: none;
+}
+
+.hidden-1 {
+  display: none;
+}
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background:white;
+}
+/* Zebra striping */
+tr:nth-of-type(odd) {
+  background: #eee;
+}
+th {
+    background: white;
+    color: #9A9A9A;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: 0em;
+    text-align: center;
+    padding:10px;
+
+}
+td {
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 0em;
+    text-align: center;
+    color:black;
+    padding:12px;
+    background:white;
+
+}
+
+@media only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+	/* Force table to not be like tables anymore */
+	table.responsive, .responsive thead, .responsive tbody, .responsive th, .responsive td, .responsive tr {
+		display: block;
+	}
+
+	/* Hide table headers (but not display: none;, for accessibility) */
+	.responsive thead tr {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+
+	.responsive tr { border: 1px solid #ccc; }
+
+	.responsive td {
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee;
+		position: relative;
+		padding-left: 50%;
+	}
+
+	.responsive td:before {
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%;
+		padding-right: 10px;
+		white-space: nowrap;
+	}
+
+	/*
+	Label the data
+	*/
+	.responsive td:before {
+	content: attr(data-table-header);
+	margin-top:10px;
+	margin-left:10px;
+	align-item:left;
+	display:flex;
+	}
+}
+
+.table-responsive .bootstrap {
+  min-height: .01%;
+  overflow-x: auto;
+}
+@media screen and (max-width: 767px) {
+  .table-responsive.bootstrap {
+    width: 100%;
+    margin-bottom: 15px;
+    overflow-y: hidden;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    border: 1px solid #ddd;
+
+  }
+  .table-responsive.bootstrap > .table {
+    margin-bottom: 0;
+  }
+  .table-responsive.bootstrap > .table > thead > tr > th,
+  .table-responsive.bootstrap > .table > tbody > tr > th,
+  .table-responsive.bootstrap > .table > tfoot > tr > th,
+  .table-responsive.bootstrap > .table > thead > tr > td,
+  .table-responsive.bootstrap > .table > tbody > tr > td,
+  .table-responsive.bootstrap > .table > tfoot > tr > td {
+    white-space: nowrap;
+  }
+  .table-responsive.bootstrap > .table-bordered {
+    border: 0;
+  }
+  .table-responsive.bootstrap > .table-bordered > thead > tr > th:first-child,
+  .table-responsive.bootstrap > .table-bordered > tbody > tr > th:first-child,
+  .table-responsive.bootstrap > .table-bordered > tfoot > tr > th:first-child,
+  .table-responsive.bootstrap > .table-bordered > thead > tr > td:first-child,
+  .table-responsive.bootstrap > .table-bordered > tbody > tr > td:first-child,
+  .table-responsive.bootstrap > .table-bordered > tfoot > tr > td:first-child {
+    border-left: 0;
+  }
+  .table-responsive.bootstrap > .table-bordered > thead > tr > th:last-child,
+  .table-responsive.bootstrap > .table-bordered > tbody > tr > th:last-child,
+  .table-responsive.bootstrap > .table-bordered > tfoot > tr > th:last-child,
+  .table-responsive.bootstrap > .table-bordered > thead > tr > td:last-child,
+  .table-responsive.bootstrap > .table-bordered > tbody > tr > td:last-child,
+  .table-responsive.bootstrap > .table-bordered > tfoot > tr > td:last-child {
+    border-right: 0;
+  }
+  .table-responsive.bootstrap > .table-bordered > tbody > tr:last-child > th,
+  .table-responsive.bootstrap > .table-bordered > tfoot > tr:last-child > th,
+  .table-responsive.bootstrap > .table-bordered > tbody > tr:last-child > td,
+  .table-responsive.bootstrap > .table-bordered > tfoot > tr:last-child > td {
+    border-bottom: 0;
+  }
+}
+ h4 {
+    color:black;
+    }
+    .clickable-row {
+    margin-top:12px;
+    margin-bottom:12px;
+    padding:12px;
+    }
+
+    .btn-save{
+      color: white;
+      background-color: black;
+      border-color: black;
+    }
+      .btn-save:hover {
+      color: black;
+      background-color: white;
+      border-color: black;
+    }
+</style>
+<script>
+    jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+});
+
+</script>
+
+
+<script>
+$(document).ready(function() {
+  $('#cost-form').submit(function(event) {
+    event.preventDefault(); // Отменяем стандартное поведение формы (отправку запроса и перезагрузку страницы)
+
+    // Получаем данные формы
+    var formData = $(this).serialize();
+    formData += '&add-cost-input=' + $('#add-cost-input').val();
+    formData += '&miscalc_pk=' + '{{ miscalc_pk }}';
+    console.log(formData);
+
+    // Отправляем запрос на сервер
+    $.ajax({
+      type: 'GET',
+      url: '/add-cost-miscalculation/',
+      data: formData,
+      success: function(response) {
+        // Обрабатываем успешный ответ от сервера
+        // Если необходимо перенаправить пользователя на другую страницу
+        window.location.href = '/miscalculation/{{ miscalc_pk }}/';
+      },
+      error: function(response) {
+        // Обрабатываем ошибку от сервера
+        alert('Error');
+      }
+    });
+  });
+});
+
+const toggleBtn = document.getElementById('toggle-btn');
+
+const toggleBlock = document.getElementById('toggle-block');
+
+toggleBtn.addEventListener('click', function() {
+    event.preventDefault()
+  toggleBlock.classList.toggle('hidden');
+});
+
+const toggleBtn1 = document.getElementById('toggle-btn-1');
+
+const toggleBlock1 = document.getElementById('toggle-block-1');
+
+toggleBtn1.addEventListener('click', function() {
+    event.preventDefault()
+  toggleBlock1.classList.toggle('hidden-1');
+});
+
+
+</script>

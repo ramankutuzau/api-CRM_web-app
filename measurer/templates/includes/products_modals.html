@@ -1,0 +1,1931 @@
+{% load static %}
+<div class="modal fade" id="productsCalcModal" aria-hidden="true" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content" style="padding: 0;">
+            <div class="d-flex flex-column align-items-start" style="padding: 0;">
+                <h5 class="modal-body" style="font-weight: 400;font-size: 20px;line-height: 24px;">Изделия</h5>
+
+                <div class="modal-body d-flex" style="padding-top: 0">
+                    <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
+                            data-bs-dismiss="modal" aria-label="Назад">
+                        <svg width="13" height="17" viewBox="0 0 13 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0.5 7L12.5 0.937822L12.5 13.0622L0.5 7Z" fill="#797979"/>
+                        </svg>
+
+                        <span style="align-self: center">Назад</span>
+                    </button>
+
+                    <button class="btn btn-dark"
+                            data-bs-target="#selectProductsCalcModal"
+                            data-bs-toggle="modal" data-bs-dismiss="modal"
+                            type="button" aria-label="Добавить изделия" style="margin-left: 1.3vw">
+                        <svg width="17" viewBox="0 0 17 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 3.66683C12.8525 3.66683 13.2787 3.66683 13.6284 3.76053C14.5774 4.01482 15.3187 4.75607 15.573 5.70508C15.6667 6.05479 15.6667 6.48102 15.6667 7.3335V15.7668C15.6667 17.307 15.6667 18.077 15.3669 18.6653C15.1033 19.1827 14.6826 19.6034 14.1651 19.8671C13.5769 20.1668 12.8068 20.1668 11.2667 20.1668H5.4C3.85986 20.1668 3.08978 20.1668 2.50153 19.8671C1.98408 19.6034 1.56338 19.1827 1.29973 18.6653C1 18.077 1 17.307 1 15.7668V7.3335C1 6.48102 1 6.05479 1.0937 5.70508C1.34799 4.75607 2.08924 4.01482 3.03825 3.76053C3.38796 3.66683 3.81419 3.66683 4.66667 3.66683M8.33333 15.5835V10.0835M5.58333 12.8335H11.0833M6.13333 5.50016H10.5333C11.0467 5.50016 11.3034 5.50016 11.4995 5.40025C11.672 5.31237 11.8122 5.17214 11.9001 4.99965C12 4.80357 12 4.54688 12 4.0335V3.30016C12 2.78678 12 2.53009 11.9001 2.334C11.8122 2.16152 11.672 2.02129 11.4995 1.93341C11.3034 1.8335 11.0467 1.8335 10.5333 1.8335H6.13333C5.61995 1.8335 5.36326 1.8335 5.16718 1.93341C4.99469 2.02129 4.85446 2.16152 4.76658 2.334C4.66667 2.53009 4.66667 2.78678 4.66667 3.30016V4.0335C4.66667 4.54688 4.66667 4.80357 4.76658 4.99965C4.85446 5.17214 4.99469 5.31237 5.16718 5.40025C5.36326 5.50016 5.61995 5.50016 6.13333 5.50016Z"
+                                  stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+
+                        <span style="align-self: center">Добавить изделие</span>
+                    </button>
+                </div>
+            </div>
+
+            <hr class="horizontal-line">
+
+            <div class="modal-body">
+
+                {% if check_windows %}
+                {% for el in windows_4_calc %}
+                <li class="list-group-item d-flex p-4 mb-2 window-card">
+                    <div class="row d-flex flex-row justify-content-between">
+                        <div class="col-xl-4 col-md-12 col-sm-12">
+                            <h6>
+                                ОП
+                                {{ el.length }}x{{ el.width }}
+                                {% if el.type_1 == "no-opening" %}
+                                Г -
+                                {% elif el.type_1 == "turning-left" %}
+                                П/О -
+                                {% elif el.type_1 == "turning-right" %}
+                                П/О -
+                                {% endif %}
+                                {% if el.type_2 == "no-opening" %}
+                                Г -
+                                {% elif el.type_2 == "turning-left" %}
+                                П/О -
+                                {% elif el.type_2 == "turning-right" %}
+                                П/О -
+                                {% endif %}
+                                {% if el.type_3 == "no-opening" %}
+                                Г -
+                                {% elif el.type_3 == "turning-left" %}
+                                П/О -
+                                {% elif el.type_3 == "turning-right" %}
+                                П/О -
+                                {% endif %}
+                                {% if el.type_4 == "no-opening" %}
+                                Г
+                                {% elif el.type_4 == "turning-left" %}
+                                П/О
+                                {% elif el.type_4 == "turning-right" %}
+                                П/О
+                                {% endif %}
+                                СП-1
+                                СТБ 1108-98
+                            </h6>
+                            <p class="m-0 property-name"> Профиль: <span class="property-value" style="color:black"> {{ el.profile.name }}</span></p>
+                            <p class="m-0 property-name"> Фурнитура: <span class="property-value" style="color:black">{{ el.fittings.name }}</span></p>
+                            <p class="m-0 property-name"> Заполнение: <span class="property-value" style="color:black"> {{ el.filling.name }}</span></p>
+                            <p class="m-0 property-name"> Цена BYN: <span class="property-value" style="color:black"> {{ el.price_in_byn }}</span></p>
+                        </div>
+
+                        <div class="col-xl-8 row col-md-12 col-sm-12 d-flex flex-row justify-content-between"
+                             style="margin-right: 13px;">
+                            <div class="col-xl-10 col-lg-12 col-md-12 col-sm-12 row" style="margin-top: 5%;">
+                                <div class="col-sm-10 p-0 d-flex flex-row">
+                                    {% if el.type_1 == "no-opening" %}
+                                    <img width="64" height="160"
+                                         src="{% static '/assets/img/sashes/no_opening.png' %}">
+                                    {% elif el.type_1 == "turning-left" %}
+                                    <img width="64" height="160"
+                                         src="{% static '/assets/img/sashes/turn_left.png' %}">
+                                    {% elif el.type_1 == "turning-right" %}
+                                    <img width="64" height="160"
+                                         src="{% static '/assets/img/sashes/turn_right.png' %}">
+                                    {% elif el.type_1 == "transom" %}
+                                    <img class="kek" width="64" height="160"
+                                         src="{% static '/assets/img/sashes/transom.png' %}">
+                                    {% endif %}
+
+                                    {% if el.type_2 == "no-opening" %}
+                                    <img width="64" height="160"
+                                         src="{% static '/assets/img/sashes/no_opening.png' %}">
+                                    {% elif el.type_2 == "turning-left" %}
+                                    <img width="64" height="160"
+                                         src="{% static '/assets/img/sashes/turn_left.png' %}">
+                                    {% elif el.type_2 == "turning-right" %}
+                                    <img width="64" height="160"
+                                         src="{% static '/assets/img/sashes/turn_right.png' %}">
+                                    {% elif el.type_2 == "transom" %}
+                                    <img width="64" height="160"
+                                         src="{% static '/assets/img/sashes/transom.png' %}">
+                                    {% endif %}
+
+                                    {% if el.type_3 == "no-opening" %}
+                                    <img width="64" height="160"
+                                         src="{% static '/assets/img/sashes/no_opening.png' %}">
+                                    {% elif el.type_3 == "turning-left" %}
+                                    <img width="64" height="160"
+                                         src="{% static '/assets/img/sashes/turn_left.png' %}">
+                                    {% elif el.type_3 == "turning-right" %}
+                                    <img width="64" height="160"
+                                         src="{% static '/assets/img/sashes/turn_right.png' %}">
+                                    {% elif el.type_3 == "transom" %}
+                                    <img width="64" height="160"
+                                         src="{% static '/assets/img/sashes/transom.png' %}">
+                                    {% endif %}
+
+                                    {% if el.type_4 == "no-opening" %}
+                                    <img width="64" height="160"
+                                         src="{% static '/assets/img/sashes/no_opening.png' %}">
+                                    {% elif el.type_4 == "turning-left" %}
+                                    <img width="64" height="160"
+                                         src="{% static '/assets/img/sashes/turn_left.png' %}">
+                                    {% elif el.type_4 == "turning-right" %}
+                                    <img width="64" height="160"
+                                         src="{% static '/assets/img/sashes/turn_right.png' %}">
+                                    {% elif el.type_4 == "transom" %}
+                                    <img width="64" height="160"
+                                         src="{% static '/assets/img/sashes/transom.png' %}">
+                                    {% endif %}
+
+                                    <img height="160" src="{% static '/assets/img/line_height.svg' %}">
+                                    <p class="vertical-lr" style="color:black;margin-top:50px;margin-left:15px">
+                                        {{ el.length }} мм.
+                                    </p>
+                                </div>
+
+                                <div class="col-sm-6 p-0 d-flex flex-column align-content-center">
+                                    <img width="256" src="{% static '/assets/img/line_width_4.svg' %}">
+                                    <p class="text-center" style="color:black">{{ el.width }} мм. </p>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-2 col-lg-12 col-md-12 col-sm-12" style="margin-right: 10px">
+                            <form method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+
+                                <input type="text" class="form-control mt-2 mb-2"
+                                       placeholder="id_windows_4_calc"
+                                       name="id_windows_4_calc" value="{{ el.pk }}" style="display:none">
+
+                                <button class="btn shadow-none delete text-gradient"
+                                        href="javascript:;"
+                                        type="submit">
+                                    <span>Удалить</span>
+
+<!--                                    <svg width="16" height="18" viewBox="0 0 16 18" fill="none"-->
+<!--                                         xmlns="http://www.w3.org/2000/svg">-->
+<!--                                        <path d="M11.1111 4.2V3.56C11.1111 2.66392 11.1111 2.21587 10.9416 1.87362C10.7924 1.57256 10.5545 1.32779 10.2618 1.17439C9.92901 1 9.49342 1 8.62222 1H7.37778C6.50658 1 6.07099 1 5.73824 1.17439C5.44554 1.32779 5.20757 1.57256 5.05843 1.87362C4.88889 2.21587 4.88889 2.66392 4.88889 3.56V4.2M6.44444 8.6V12.6M9.55556 8.6V12.6M1 4.2H15M13.4444 4.2V13.16C13.4444 14.5041 13.4444 15.1762 13.1901 15.6896C12.9664 16.1412 12.6095 16.5083 12.1704 16.7384C11.6713 17 11.0179 17 9.71111 17H6.28889C4.9821 17 4.32871 17 3.82958 16.7384C3.39053 16.5083 3.03358 16.1412 2.80987 15.6896C2.55556 15.1762 2.55556 14.5041 2.55556 13.16V4.2"-->
+<!--                                              stroke="white" stroke-width="2" stroke-linecap="round"-->
+<!--                                              stroke-linejoin="round"/>-->
+<!--                                    </svg>-->
+                                </button>
+                            </form>
+                        </div>
+                        </div>
+                </li>
+                {% endfor %}
+
+                {% for el in windows_3_calc %}
+                <li class="list-group-item d-flex p-4 mb-2 window-card">
+                    <div class="row d-flex flex-row justify-content-between">
+                        <div class="col-xl-4 col-md-12 col-sm-12">
+                            <h6>
+                                ОП
+                                {{ el.length }}x{{ el.width }}
+                                {% if el.type_1 == "no-opening" %}
+                                Г -
+                                {% elif el.type_1 == "turning-left" %}
+                                П/О -
+                                {% elif el.type_1 == "turning-right" %}
+                                П/О -
+                                {% endif %}
+                                {% if el.type_2 == "no-opening" %}
+                                Г -
+                                {% elif el.type_2 == "turning-left" %}
+                                П/О -
+                                {% elif el.type_2 == "turning-right" %}
+                                П/О -
+                                {% endif %}
+                                {% if el.type_3 == "no-opening" %}
+                                Г
+                                {% elif el.type_3 == "turning-left" %}
+                                П/О
+                                {% elif el.type_3 == "turning-right" %}
+                                П/О
+                                {% endif %}
+                                СП-1
+                                СТБ 1108-98
+                            </h6>
+<!--                            {% if el.type_1 == "no-opening" %}-->
+<!--                            <p class="m-0 property-name"> 1-ая створка: <span class="property-value" style="color:black"> Глухая</span></p>-->
+<!--                            {% elif el.type_1 == "turning-left" %}-->
+<!--                            <p class="m-0 property-name"> 1-ая створка: <span class="property-value" style="color:black"> Поворотно-откидная левая</span></p>-->
+<!--                            {% elif el.type_1 == "turning-right" %}-->
+<!--                            <p class="m-0 property-name"> 1-ая створка: <span class="property-value" style="color:black"> Поворотно-откидная правая</span>-->
+<!--                            </p>-->
+<!--                            {% endif %}-->
+<!--                            {% if el.type_2 == "no-opening" %}-->
+<!--                            <p class="m-0 property-name"> 2-ая створка: <span class="property-value" style="color:black"> Глухая</span></p>-->
+<!--                            {% elif el.type_2 == "turning-left" %}-->
+<!--                            <p class="m-0 property-name"> 2-ая створка: <span class="property-value" style="color:black"> Поворотно-откидная левая</span></p>-->
+<!--                            {% elif el.type_2 == "turning-right" %}-->
+<!--                            <p class="m-0 property-name"> 2-ая створка: <span class="property-value" style="color:black"> Поворотно-откидная правая</span>-->
+<!--                            </p>-->
+<!--                            {% endif %}-->
+<!--                            {% if el.type_3 == "no-opening" %}-->
+<!--                            <p class="m-0 property-name">3-ая створка: <span class="property-value" style="color:black"> Глухая</span></p>-->
+<!--                            {% elif el.type_3 == "turning-left" %}-->
+<!--                            <p class="m-0 property-name">3-ая створка: <span class="property-value" style="color:black"> Поворотно-откидная левая</span></p>-->
+<!--                            {% elif el.type_3 == "turning-right" %}-->
+<!--                            <p class="m-0 property-name">3-ая створка: <span class="property-value" style="color:black"> Поворотно-откидная правая</span></p>-->
+<!--                            {% endif %}-->
+                            <p class="m-0 property-name"> Профиль: <span class="property-value" style="color:black"> {{ el.profile.name }}</span></p>
+                            <p class="m-0 property-name"> Фурнитура: <span class="property-value" style="color:black">{{ el.fittings.name }}</span></p>
+                            <p class="m-0 property-name"> Заполнение: <span class="property-value" style="color:black"> {{ el.filling.name }}</span></p>
+                            <p class="m-0 property-name"> Цена BYN: <span class="property-value" style="color:black"> {{ el.price_in_byn }}</span></p>
+                        </div>
+
+                        <div class="col-xl-8 row col-md-12 col-sm-12 d-flex flex-row justify-content-between"
+                             style="margin-right: 13px;">
+                            <div class="col-xl-10 col-lg-12 col-md-12 col-sm-12 row" style="margin-top: 5%;">
+                                <div class="col-sm-10 p-0 d-flex flex-row" style="margin-left: 40px">
+                                    {% if el.type_1 == "no-opening" %}
+                                    <img width="64" height="160"
+                                         src="{% static '/assets/img/sashes/no_opening.png' %}">
+                                    {% elif el.type_1 == "turning-left" %}
+                                    <img width="64" height="160"
+                                         src="{% static '/assets/img/sashes/turn_left.png' %}">
+                                    {% elif el.type_1 == "turning-right" %}
+                                    <img width="64" height="160"
+                                         src="{% static '/assets/img/sashes/turn_right.png' %}">
+                                    {% elif el.type_1 == "transom" %}
+                                    <img class="kek" width="64" height="160"
+                                         src="{% static '/assets/img/sashes/transom.png' %}">
+                                    {% endif %}
+
+                                    {% if el.type_2 == "no-opening" %}
+                                    <img width="64" height="160"
+                                         src="{% static '/assets/img/sashes/no_opening.png' %}">
+                                    {% elif el.type_2 == "turning-left" %}
+                                    <img width="64" height="160"
+                                         src="{% static '/assets/img/sashes/turn_left.png' %}">
+                                    {% elif el.type_2 == "turning-right" %}
+                                    <img width="64" height="160"
+                                         src="{% static '/assets/img/sashes/turn_right.png' %}">
+                                    {% elif el.type_2 == "transom" %}
+                                    <img width="64" height="160"
+                                         src="{% static '/assets/img/sashes/transom.png' %}">
+                                    {% endif %}
+
+                                    {% if el.type_3 == "no-opening" %}
+                                    <img width="64" height="160"
+                                         src="{% static '/assets/img/sashes/no_opening.png' %}">
+                                    {% elif el.type_3 == "turning-left" %}
+                                    <img width="64" height="160"
+                                         src="{% static '/assets/img/sashes/turn_left.png' %}">
+                                    {% elif el.type_3 == "turning-right" %}
+                                    <img width="64" height="160"
+                                         src="{% static '/assets/img/sashes/turn_right.png' %}">
+                                    {% elif el.type_3 == "transom" %}
+                                    <img width="64" height="160"
+                                         src="{% static '/assets/img/sashes/transom.png' %}">
+                                    {% endif %}
+
+                                    <img height="160" src="{% static '/assets/img/line_height.svg' %}">
+                                    <p class="vertical-lr" style="color:black;margin-top:50px;margin-left:15px">
+                                        {{ el.length }} мм.
+                                    </p>
+                                </div>
+
+                                <div class="col-sm-6 p-0 d-flex flex-column align-content-center" style="margin-left: 40px">
+                                    <img width="192" src="{% static '/assets/img/line_width_3.svg' %}">
+                                    <p class="text-center" style="margin-left: -60px;color:black">{{ el.width }} мм. </p>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-2 col-lg-12 col-md-12 col-sm-12" style="margin-right: 10px">
+                            <form method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+
+                                <input type="text" class="form-control mt-2 mb-2"
+                                       placeholder="id_windows_3_calc"
+                                       name="id_windows_3_calc" value="{{ el.pk }}" style="display:none">
+
+                                <button class="btn shadow-none delete text-gradient"
+                                        href="javascript:;"
+                                        type="submit">
+                                    <span>Удалить</span>
+
+<!--                                    <svg width="16" height="18" viewBox="0 0 16 18" fill="none"-->
+<!--                                         xmlns="http://www.w3.org/2000/svg">-->
+<!--                                        <path d="M11.1111 4.2V3.56C11.1111 2.66392 11.1111 2.21587 10.9416 1.87362C10.7924 1.57256 10.5545 1.32779 10.2618 1.17439C9.92901 1 9.49342 1 8.62222 1H7.37778C6.50658 1 6.07099 1 5.73824 1.17439C5.44554 1.32779 5.20757 1.57256 5.05843 1.87362C4.88889 2.21587 4.88889 2.66392 4.88889 3.56V4.2M6.44444 8.6V12.6M9.55556 8.6V12.6M1 4.2H15M13.4444 4.2V13.16C13.4444 14.5041 13.4444 15.1762 13.1901 15.6896C12.9664 16.1412 12.6095 16.5083 12.1704 16.7384C11.6713 17 11.0179 17 9.71111 17H6.28889C4.9821 17 4.32871 17 3.82958 16.7384C3.39053 16.5083 3.03358 16.1412 2.80987 15.6896C2.55556 15.1762 2.55556 14.5041 2.55556 13.16V4.2"-->
+<!--                                              stroke="white" stroke-width="2" stroke-linecap="round"-->
+<!--                                              stroke-linejoin="round"/>-->
+<!--                                    </svg>-->
+                                </button>
+                            </form>
+                        </div>
+                        </div>
+                </li>
+                {% endfor %}
+
+                {% for el in windows_2_calc %}
+                <li class="list-group-item d-flex p-4 mb-2 window-card">
+                    <div class="row d-flex flex-row justify-content-between">
+                        <div class="col-xl-4 col-md-12 col-sm-12">
+                            <h6>
+                                ОП
+                                {{ el.length }}x{{ el.width }}
+                                {% if el.type_1 == "no-opening" %}
+                                Г -
+                                {% elif el.type_1 == "turning-left" %}
+                                П/О -
+                                {% elif el.type_1 == "turning-right" %}
+                                П/О -
+                                {% endif %}
+                                {% if el.type_2 == "no-opening" %}
+                                Г
+                                {% elif el.type_2 == "turning-left" %}
+                                П/О
+                                {% elif el.type_2 == "turning-right" %}
+                                П/О
+                                {% endif %}
+                                СП-1
+                                СТБ 1108-98
+                            </h6>
+<!--                            {% if el.type_1 == "no-opening" %}-->
+<!--                            <p class="m-0 property-name"> 1-ая створка: <span class="property-value" style="color:black"> Глухая</span></p>-->
+<!--                            {% elif el.type_1 == "turning-left" %}-->
+<!--                            <p class="m-0 property-name"> 1-ая створка: <span class="property-value" style="color:black"> Поворотно-откидная левая</span></p>-->
+<!--                            {% elif el.type_1 == "turning-right" %}-->
+<!--                            <p class="m-0 property-name"> 1-ая створка: <span class="property-value" style="color:black"> Поворотно-откидная правая</span>-->
+<!--                            </p>-->
+<!--                            {% endif %}-->
+<!--                            {% if el.type_2 == "no-opening" %}-->
+<!--                            <p class="m-0 property-name"> 2-ая створка: <span class="property-value" style="color:black"> Глухая</span></p>-->
+<!--                            {% elif el.type_2 == "turning-left" %}-->
+<!--                            <p class="m-0 property-name"> 2-ая створка: <span class="property-value" style="color:black"> Поворотно-откидная левая</span></p>-->
+<!--                            {% elif el.type_2 == "turning-right" %}-->
+<!--                            <p class="m-0 property-name"> 2-ая створка: <span class="property-value" style="color:black"> Поворотно-откидная правая</span>-->
+<!--                            </p>-->
+<!--                            {% endif %}-->
+                            <p class="m-0 property-name"> Профиль: <span class="property-value" style="color:black"> {{ el.profile.name }}</span></p>
+                            <p class="m-0 property-name"> Фурнитура: <span class="property-value" style="color:black">{{ el.fittings.name }}</span></p>
+                            <p class="m-0 property-name"> Заполнение: <span class="property-value" style="color:black"> {{ el.filling.name }}</span></p>
+                            <p class="m-0 property-name"> Цена BYN: <span class="property-value" style="color:black"> {{ el.price_in_byn }}</span></p>
+                        </div>
+
+                        <div class="col-xl-8 row col-md-12 col-sm-12 d-flex flex-row justify-content-between"
+                             style="margin-right: 13px;">
+                            <div class="col-xl-10 col-lg-12 col-md-12 col-sm-12 row" style="margin-top: 5%;">
+                                <div class="col-sm-10 p-0 d-flex flex-row" style="margin-left: 80px">
+                                    {% if el.type_1 == "no-opening" %}
+                                    <img width="64" height="160"
+                                         src="{% static '/assets/img/sashes/no_opening.png' %}">
+                                    {% elif el.type_1 == "turning-left" %}
+                                    <img width="64" height="160"
+                                         src="{% static '/assets/img/sashes/turn_left.png' %}">
+                                    {% elif el.type_1 == "turning-right" %}
+                                    <img width="64" height="160"
+                                         src="{% static '/assets/img/sashes/turn_right.png' %}">
+                                    {% elif el.type_1 == "transom" %}
+                                    <img class="kek" width="64" height="160"
+                                         src="{% static '/assets/img/sashes/transom.png' %}">
+                                    {% endif %}
+
+                                    {% if el.type_2 == "no-opening" %}
+                                    <img width="64" height="160"
+                                         src="{% static '/assets/img/sashes/no_opening.png' %}">
+                                    {% elif el.type_2 == "turning-left" %}
+                                    <img width="64" height="160"
+                                         src="{% static '/assets/img/sashes/turn_left.png' %}">
+                                    {% elif el.type_2 == "turning-right" %}
+                                    <img width="64" height="160"
+                                         src="{% static '/assets/img/sashes/turn_right.png' %}">
+                                    {% elif el.type_2 == "transom" %}
+                                    <img width="64" height="160"
+                                         src="{% static '/assets/img/sashes/transom.png' %}">
+                                    {% endif %}
+
+                                    <img height="160" src="{% static '/assets/img/line_height.svg' %}">
+                                    <p class="vertical-lr" style="color:black;margin-top:50px;margin-left:15px">
+                                        {{ el.length }} мм.
+                                    </p>
+                                </div>
+
+                                <div class="col-sm-6 p-0 d-flex flex-column align-content-center" style="margin-left: 80px">
+                                    <img width="128" src="{% static '/assets/img/line_width_2.svg' %}">
+                                    <p class="text-center" style="margin-left: -120px;color:black">{{ el.width }} мм. </p>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-2 col-lg-12 col-md-12 col-sm-12" style="margin-right: 10px">
+                            <form method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+
+                                <input type="text" class="form-control mt-2 mb-2"
+                                       placeholder="id_windows_2_calc"
+                                       name="id_windows_2_calc" value="{{ el.pk }}" style="display:none">
+
+                                <button class="btn shadow-none delete text-gradient"
+                                        href="javascript:;"
+                                        type="submit">
+                                    <span>Удалить</span>
+
+<!--                                    <svg width="16" height="18" viewBox="0 0 16 18" fill="none"-->
+<!--                                         xmlns="http://www.w3.org/2000/svg">-->
+<!--                                        <path d="M11.1111 4.2V3.56C11.1111 2.66392 11.1111 2.21587 10.9416 1.87362C10.7924 1.57256 10.5545 1.32779 10.2618 1.17439C9.92901 1 9.49342 1 8.62222 1H7.37778C6.50658 1 6.07099 1 5.73824 1.17439C5.44554 1.32779 5.20757 1.57256 5.05843 1.87362C4.88889 2.21587 4.88889 2.66392 4.88889 3.56V4.2M6.44444 8.6V12.6M9.55556 8.6V12.6M1 4.2H15M13.4444 4.2V13.16C13.4444 14.5041 13.4444 15.1762 13.1901 15.6896C12.9664 16.1412 12.6095 16.5083 12.1704 16.7384C11.6713 17 11.0179 17 9.71111 17H6.28889C4.9821 17 4.32871 17 3.82958 16.7384C3.39053 16.5083 3.03358 16.1412 2.80987 15.6896C2.55556 15.1762 2.55556 14.5041 2.55556 13.16V4.2"-->
+<!--                                              stroke="white" stroke-width="2" stroke-linecap="round"-->
+<!--                                              stroke-linejoin="round"/>-->
+<!--                                    </svg>-->
+                                </button>
+                            </form>
+                        </div>
+                        </div>
+                </li>
+                {% endfor %}
+
+                {% for el in windows_1_calc %}
+                <li class="list-group-item d-flex p-4 mb-2 window-card">
+                    <div class="row d-flex flex-row justify-content-between">
+                        <div class="col-xl-4 col-md-12 col-sm-12">
+                            <h6>
+                                ОП
+                                {{ el.length }}x{{ el.width }}
+                                {% if el.type == "no-opening" %}
+                                Г
+                                {% elif el.type == "turning-left" %}
+                                П/О
+                                {% elif el.type == "turning-right" %}
+                                П/О
+                                {% endif %}
+                                СП-1
+                                СТБ 1108-98
+                            </h6>
+<!--                            {% if el.type == "no-opening" %}-->
+<!--                            <p class="m-0 property-name"> Створка: <span class="property-value" style="color:black"> Глухая</span></p>-->
+<!--                            {% elif el.type == "turning-left" %}-->
+<!--                            <p class="m-0 property-name"> Створка: <span class="property-value" style="color:black"> Поворотно-откидная левая</span></p>-->
+<!--                            {% elif el.type == "turning-right" %}-->
+<!--                            <p class="m-0 property-name"> Створка: <span class="property-value" style="color:black"> Поворотно-откидная правая</span></p>-->
+<!--                            {% endif %}-->
+                            <p class="m-0 property-name"> Профиль: <span class="property-value" style="color:black"> {{ el.profile.name }}</span></p>
+                            <p class="m-0 property-name"> Фурнитура: <span class="property-value" style="color:black">{{ el.fittings.name }}</span></p>
+                            <p class="m-0 property-name"> Заполнение: <span class="property-value" style="color:black"> {{ el.filling.name }}</span></p>
+                            <p class="m-0 property-name"> Цена BYN: <span class="property-value" style="color:black"> {{ el.price_in_byn }}</span></p>
+                        </div>
+
+                        <div class="col-xl-8 row col-md-12 col-sm-12 d-flex flex-row justify-content-between"
+                             style="margin-right: 13px;">
+                            <div class="col-xl-10 col-lg-12 col-md-12 col-sm-12 row" style="margin-top: 5%;">
+                                <div class="col-sm-10 p-0 d-flex flex-row" style="margin-left: 100px">
+                                    {% if el.type == "no-opening" %}
+                                    <img width="64" height="160"
+                                         src="{% static '/assets/img/sashes/no_opening.png' %}">
+                                    {% elif el.type == "turning-left" %}
+                                    <img width="64" height="160"
+                                         src="{% static '/assets/img/sashes/turn_left.png' %}">
+                                    {% elif el.type == "turning-right" %}
+                                    <img width="64" height="160"
+                                         src="{% static '/assets/img/sashes/turn_right.png' %}">
+                                    {% elif el.type == "transom" %}
+                                    <img width="160" height="110"
+                                         src="{% static '/assets/img/sashes/transom.png' %}">
+                                    {% endif %}
+                                    {% if el.type == "transom" %}
+                                    <img height="110" src="{% static '/assets/img/line_height.svg' %}">
+                                    <p class="vertical-lr" style="color:black;margin-top:25px;margin-left:15px">
+                                        {{ el.length }} мм.
+                                    </p>
+                                    {% else  %}
+                                    <img height="160" src="{% static '/assets/img/line_height.svg' %}">
+                                    <p class="vertical-lr" style="color:black;margin-top:50px;margin-left:15px">
+                                        {{ el.length }} мм.
+                                    </p>
+                                    {% endif %}
+                                </div>
+                                    {% if el.type == "transom" %}
+                                <div class="col-sm-6 p-0 d-flex flex-column align-content-center" style="margin-left: 100px">
+                                    <img width="160" src="{% static '/assets/img/line_width.svg' %}">
+                                    <p class="text-center" style="margin-left: -100px;color:black">{{ el.width }} мм. </p>
+                                </div>
+                                    {% else  %}
+                                <div class="col-sm-6 p-0 d-flex flex-column align-content-center" style="margin-left: 100px">
+                                    <img width="64" src="{% static '/assets/img/line_width.svg' %}">
+                                    <p class="text-center" style="margin-left: -180px;color:black">{{ el.width }} мм. </p>
+                                </div>
+                                    {% endif %}
+                            </div>
+
+                            <div class="col-xl-2 col-lg-12 col-md-12 col-sm-12" style="margin-right: 10px">
+                            <form method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+
+                                <input type="text" class="form-control mt-2 mb-2"
+                                       placeholder="id_windows_1_calc"
+                                       name="id_windows_1_calc" value="{{ el.pk }}" style="display:none">
+
+                                <button class="btn shadow-none delete text-gradient"
+                                        href="javascript:;"
+                                        type="submit">
+                                    <span>Удалить</span>
+
+<!--                                    <svg width="16" height="18" viewBox="0 0 16 18" fill="none"-->
+<!--                                         xmlns="http://www.w3.org/2000/svg">-->
+<!--                                        <path d="M11.1111 4.2V3.56C11.1111 2.66392 11.1111 2.21587 10.9416 1.87362C10.7924 1.57256 10.5545 1.32779 10.2618 1.17439C9.92901 1 9.49342 1 8.62222 1H7.37778C6.50658 1 6.07099 1 5.73824 1.17439C5.44554 1.32779 5.20757 1.57256 5.05843 1.87362C4.88889 2.21587 4.88889 2.66392 4.88889 3.56V4.2M6.44444 8.6V12.6M9.55556 8.6V12.6M1 4.2H15M13.4444 4.2V13.16C13.4444 14.5041 13.4444 15.1762 13.1901 15.6896C12.9664 16.1412 12.6095 16.5083 12.1704 16.7384C11.6713 17 11.0179 17 9.71111 17H6.28889C4.9821 17 4.32871 17 3.82958 16.7384C3.39053 16.5083 3.03358 16.1412 2.80987 15.6896C2.55556 15.1762 2.55556 14.5041 2.55556 13.16V4.2"-->
+<!--                                              stroke="white" stroke-width="2" stroke-linecap="round"-->
+<!--                                              stroke-linejoin="round"/>-->
+<!--                                    </svg>-->
+                                </button>
+                            </form>
+                        </div>
+                        </div>
+                </li>
+                {% endfor %}
+
+                {% for el in door_calc %}
+                <li class="list-group-item d-flex p-4 mb-2 window-card">
+                    <div class="row d-flex flex-row justify-content-between">
+                        <div class="col-xl-4 col-md-6 col" style="margin-top: 2%;">
+                            <h6>
+                                ДБ
+                                {{ el.length }}x{{ el.width }}
+                                {% if el.type == "no-opening" %}
+                                Г
+                                {% elif el.type == "turning-left" %}
+                                П/О
+                                {% elif el.type == "turning-right" %}
+                                П/О
+                                {% endif %}
+                                СП-1
+                                СТБ 1108-98
+                            </h6>
+<!--                            {% if el.type == "door-turning-left" %}-->
+<!--                            <p class="m-0 property-name"> Створка: <span class="property-value" style="color:black"> Дверь поворотно-откидная левая</span></p>-->
+<!--                            {% elif el.type == "door-turning-right" %}-->
+<!--                            <p class="m-0 property-name"> Створка: <span class="property-value" style="color:black"> Дверь поворотно-откидная правая</span></p>-->
+<!--                            {% elif el.type == "door-turning-left-glass" %}-->
+<!--                            <p class="m-0 property-name"> Створка: <span class="property-value" style="color:black"> Дверь поворотно-откидная левая с импостом</span></p>-->
+<!--                             {% elif el.type == "door-turning-right-glass" %}-->
+<!--                            <p class="m-0 property-name"> Створка: <span class="property-value" style="color:black"> Дверь поворотно-откидная правая с импостом</span></p>-->
+<!--                              {% elif el.type == "door-turning-left-sandwich" %}-->
+<!--                            <p class="m-0 property-name"> Створка: <span class="property-value" style="color:black"> Дверь поворотно-откидная левая с сендвичем</span></p>-->
+<!--                               {% elif el.type == "door-turning-right-sandwich" %}-->
+<!--                            <p class="m-0 property-name"> Створка: <span class="property-value" style="color:black"> Дверь поворотно-откидная правая с сендвичем</span></p>-->
+<!--                            {% endif %}-->
+                            <p class="m-0 property-name"> Профиль: <span class="property-value" style="color:black"> {{ el.profile.name }}</span></p>
+                            <p class="m-0 property-name"> Фурнитура: <span class="property-value" style="color:black">{{ el.fittings.name }}</span></p>
+                            <p class="m-0 property-name"> Заполнение: <span class="property-value" style="color:black"> {{ el.filling.name }}</span></p>
+                            <p class="m-0 property-name"> Цена BYN: <span class="property-value" style="color:black"> {{ el.price_in_byn }}</span></p>
+                        </div>
+
+                        <div class="col-xl-8 row col-md-12 col-sm-12 d-flex flex-row justify-content-between"
+                             style="margin-right: 13px;">
+                            <div class="col-xl-10 col-lg-12 col-md-12 col-sm-12 row" style="margin-top: 3%;">
+                                <div class="col-sm-10 p-0 d-flex flex-row" style="margin-left: 100px">
+                                    {% if el.type == "door-turning-left" %}
+                                    <img width="64" height="200"
+                                         src="{% static '/assets/img/doors/door_left.png' %}">
+                                    {% elif el.type == "door-turning-right" %}
+                                    <img width="86" height="200"
+                                         src="{% static '/assets/img/doors/door_right.png' %}">
+                                    {% elif el.type == "door-turning-left-glass" %}
+                                    <img width="86" height="200"
+                                         src="{% static '/assets/img/doors/door_glass_left.png' %}">
+                                       {% elif el.type == "door-turning-right-glass" %}
+                                    <img width="86" height="200"
+                                         src="{% static '/assets/img/doors/door_glass_right.png' %}">
+
+                                       {% elif el.type == "door-turning-left-sandwich" %}
+                                    <img width="100%" height="200"
+                                         src="{% static '/assets/img/doors/door_sandwich_left.png' %}">
+                                     {% elif el.type == "door-turning-right-sandwich" %}
+                                    <img width="100%" height="200"
+                                         src="{% static '/assets/img/doors/door_sandwich_right.png' %}">
+                                    {% endif %}
+
+                                    <img height="200" src="{% static '/assets/img/line_height_door.svg' %}">
+                                    <p class="vertical-lr" style="color:black;margin-top:50px;margin-left:15px">
+                                        {{ el.length }} мм.
+                                    </p>
+                                </div>
+
+                                <div class="col-sm-6 p-0 d-flex flex-column align-content-center" style="margin-left: 100px">
+                                    <img width="64" src="{% static '/assets/img/line_width.svg' %}">
+                                    <p class="text-center" style="margin-left: -180px;color:black">{{ el.width }} мм. </p>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-2 col-lg-12 col-md-12 col-sm-12" style="margin-right: 10px">
+                            <form method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+
+                                <input type="text" class="form-control mt-2 mb-2"
+                                       placeholder="id_door_calc"
+                                       name="id_door_calc" value="{{ el.pk }}" style="display:none">
+
+                                <button class="btn shadow-none delete text-gradient"
+                                        href="javascript:;"
+                                        type="submit">
+                                    <span>Удалить</span>
+
+<!--                                    <svg width="16" height="18" viewBox="0 0 16 18" fill="none"-->
+<!--                                         xmlns="http://www.w3.org/2000/svg">-->
+<!--                                        <path d="M11.1111 4.2V3.56C11.1111 2.66392 11.1111 2.21587 10.9416 1.87362C10.7924 1.57256 10.5545 1.32779 10.2618 1.17439C9.92901 1 9.49342 1 8.62222 1H7.37778C6.50658 1 6.07099 1 5.73824 1.17439C5.44554 1.32779 5.20757 1.57256 5.05843 1.87362C4.88889 2.21587 4.88889 2.66392 4.88889 3.56V4.2M6.44444 8.6V12.6M9.55556 8.6V12.6M1 4.2H15M13.4444 4.2V13.16C13.4444 14.5041 13.4444 15.1762 13.1901 15.6896C12.9664 16.1412 12.6095 16.5083 12.1704 16.7384C11.6713 17 11.0179 17 9.71111 17H6.28889C4.9821 17 4.32871 17 3.82958 16.7384C3.39053 16.5083 3.03358 16.1412 2.80987 15.6896C2.55556 15.1762 2.55556 14.5041 2.55556 13.16V4.2"-->
+<!--                                              stroke="white" stroke-width="2" stroke-linecap="round"-->
+<!--                                              stroke-linejoin="round"/>-->
+<!--                                    </svg>-->
+                                </button>
+                            </form>
+                        </div>
+                        </div>
+                </li>
+                {% endfor %}
+                {% else %}
+                <div class="col-12 d-flex justify-content-center mt-3">
+                    <svg width="313" height="78" viewBox="0 0 313 78" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M87.752 48H85.592V32.76H80.24V30.864H93.08V32.76H87.752V48ZM92.399 35.136H94.655L97.439 42.456C97.599 42.888 97.743 43.304 97.871 43.704C98.015 44.104 98.143 44.496 98.255 44.88C98.367 45.248 98.455 45.608 98.519 45.96H98.615C98.711 45.56 98.863 45.04 99.071 44.4C99.279 43.744 99.495 43.088 99.719 42.432L102.335 35.136H104.615L99.071 49.776C98.767 50.576 98.407 51.272 97.991 51.864C97.591 52.472 97.095 52.936 96.503 53.256C95.927 53.592 95.223 53.76 94.391 53.76C94.007 53.76 93.671 53.736 93.383 53.688C93.095 53.656 92.847 53.616 92.639 53.568V51.888C92.815 51.92 93.023 51.952 93.263 51.984C93.519 52.016 93.783 52.032 94.055 52.032C94.551 52.032 94.975 51.936 95.327 51.744C95.695 51.568 96.007 51.304 96.263 50.952C96.519 50.616 96.735 50.216 96.911 49.752L97.583 48.048L92.399 35.136ZM115.529 36.912H111.329V48H109.241V36.912H105.089V35.136H115.529V36.912ZM134.631 35.136V48H132.519V36.936H125.871V48H123.759V35.136H134.631ZM149.919 41.544C149.919 42.616 149.775 43.568 149.487 44.4C149.215 45.216 148.815 45.912 148.287 46.488C147.775 47.064 147.143 47.504 146.391 47.808C145.655 48.096 144.831 48.24 143.919 48.24C143.071 48.24 142.287 48.096 141.567 47.808C140.847 47.504 140.223 47.064 139.695 46.488C139.167 45.912 138.751 45.216 138.447 44.4C138.159 43.568 138.015 42.616 138.015 41.544C138.015 40.12 138.255 38.92 138.735 37.944C139.215 36.952 139.903 36.2 140.799 35.688C141.695 35.16 142.759 34.896 143.991 34.896C145.159 34.896 146.183 35.16 147.063 35.688C147.959 36.2 148.655 36.952 149.151 37.944C149.663 38.92 149.919 40.12 149.919 41.544ZM140.199 41.544C140.199 42.552 140.327 43.432 140.583 44.184C140.855 44.92 141.271 45.488 141.831 45.888C142.391 46.288 143.103 46.488 143.967 46.488C144.831 46.488 145.543 46.288 146.103 45.888C146.663 45.488 147.071 44.92 147.327 44.184C147.599 43.432 147.735 42.552 147.735 41.544C147.735 40.52 147.599 39.648 147.327 38.928C147.055 38.208 146.639 37.656 146.079 37.272C145.535 36.872 144.823 36.672 143.943 36.672C142.631 36.672 141.679 37.104 141.087 37.968C140.495 38.832 140.199 40.024 140.199 41.544ZM160.875 35.136H163.179L157.683 41.328L163.635 48H161.187L155.379 41.472V48H153.267V35.136H155.379V41.376L160.875 35.136ZM170.842 34.92C172.41 34.92 173.57 35.264 174.322 35.952C175.074 36.64 175.45 37.736 175.45 39.24V48H173.914L173.506 46.176H173.41C173.042 46.64 172.658 47.032 172.258 47.352C171.874 47.656 171.426 47.88 170.914 48.024C170.418 48.168 169.81 48.24 169.09 48.24C168.322 48.24 167.626 48.104 167.002 47.832C166.394 47.56 165.914 47.144 165.562 46.584C165.21 46.008 165.034 45.288 165.034 44.424C165.034 43.144 165.538 42.16 166.546 41.472C167.554 40.768 169.106 40.384 171.202 40.32L173.386 40.248V39.48C173.386 38.408 173.154 37.664 172.69 37.248C172.226 36.832 171.57 36.624 170.722 36.624C170.05 36.624 169.41 36.728 168.802 36.936C168.194 37.128 167.626 37.352 167.098 37.608L166.45 36.024C167.01 35.72 167.674 35.464 168.442 35.256C169.21 35.032 170.01 34.92 170.842 34.92ZM171.466 41.784C169.866 41.848 168.754 42.104 168.13 42.552C167.522 43 167.218 43.632 167.218 44.448C167.218 45.168 167.434 45.696 167.866 46.032C168.314 46.368 168.882 46.536 169.57 46.536C170.658 46.536 171.562 46.24 172.282 45.648C173.002 45.04 173.362 44.112 173.362 42.864V41.712L171.466 41.784ZM187.23 35.136V40.488H194.214V35.136H196.326V48H194.214V42.264H187.23V48H185.118V35.136H187.23ZM202.391 42.984C202.391 43.128 202.383 43.336 202.367 43.608C202.367 43.864 202.359 44.144 202.343 44.448C202.327 44.736 202.311 45.016 202.295 45.288C202.279 45.544 202.263 45.752 202.247 45.912L209.135 35.136H211.727V48H209.759V40.416C209.759 40.16 209.759 39.824 209.759 39.408C209.775 38.992 209.791 38.584 209.807 38.184C209.823 37.768 209.839 37.456 209.855 37.248L203.015 48H200.399V35.136H202.391V42.984ZM217.669 39.816C217.669 40.568 217.877 41.128 218.293 41.496C218.725 41.848 219.341 42.024 220.141 42.024C220.941 42.024 221.669 41.904 222.325 41.664C222.981 41.408 223.653 41.072 224.341 40.656V35.136H226.453V48H224.341V42.264C223.621 42.728 222.909 43.096 222.205 43.368C221.517 43.624 220.685 43.752 219.709 43.752C218.397 43.752 217.373 43.408 216.637 42.72C215.917 42.032 215.557 41.112 215.557 39.96V35.136H217.669V39.816ZM235.508 34.896C236.612 34.896 237.556 35.136 238.34 35.616C239.14 36.096 239.748 36.776 240.164 37.656C240.596 38.52 240.812 39.536 240.812 40.704V41.976H232.004C232.036 43.432 232.404 44.544 233.108 45.312C233.828 46.064 234.828 46.44 236.108 46.44C236.924 46.44 237.644 46.368 238.268 46.224C238.908 46.064 239.564 45.84 240.236 45.552V47.4C239.58 47.688 238.932 47.896 238.292 48.024C237.652 48.168 236.892 48.24 236.012 48.24C234.796 48.24 233.716 47.992 232.772 47.496C231.844 47 231.116 46.264 230.588 45.288C230.076 44.296 229.82 43.088 229.82 41.664C229.82 40.256 230.052 39.048 230.516 38.04C230.996 37.032 231.66 36.256 232.508 35.712C233.372 35.168 234.372 34.896 235.508 34.896ZM235.484 36.624C234.476 36.624 233.676 36.952 233.084 37.608C232.508 38.248 232.164 39.144 232.052 40.296H238.604C238.604 39.56 238.492 38.92 238.268 38.376C238.044 37.832 237.7 37.408 237.236 37.104C236.788 36.784 236.204 36.624 235.484 36.624ZM251.935 35.136V36.912H246.199V48H244.087V35.136H251.935ZM265.419 41.544C265.419 42.616 265.275 43.568 264.987 44.4C264.715 45.216 264.315 45.912 263.787 46.488C263.275 47.064 262.643 47.504 261.891 47.808C261.155 48.096 260.331 48.24 259.419 48.24C258.571 48.24 257.787 48.096 257.067 47.808C256.347 47.504 255.723 47.064 255.195 46.488C254.667 45.912 254.251 45.216 253.947 44.4C253.659 43.568 253.515 42.616 253.515 41.544C253.515 40.12 253.755 38.92 254.235 37.944C254.715 36.952 255.403 36.2 256.299 35.688C257.195 35.16 258.259 34.896 259.491 34.896C260.659 34.896 261.683 35.16 262.563 35.688C263.459 36.2 264.155 36.952 264.651 37.944C265.163 38.92 265.419 40.12 265.419 41.544ZM255.699 41.544C255.699 42.552 255.827 43.432 256.083 44.184C256.355 44.92 256.771 45.488 257.331 45.888C257.891 46.288 258.603 46.488 259.467 46.488C260.331 46.488 261.043 46.288 261.603 45.888C262.163 45.488 262.571 44.92 262.827 44.184C263.099 43.432 263.235 42.552 263.235 41.544C263.235 40.52 263.099 39.648 262.827 38.928C262.555 38.208 262.139 37.656 261.579 37.272C261.035 36.872 260.323 36.672 259.443 36.672C258.131 36.672 257.179 37.104 256.587 37.968C255.995 38.832 255.699 40.024 255.699 41.544ZM276.574 35.136V40.488H283.558V35.136H285.67V48H283.558V42.264H276.574V48H274.462V35.136H276.574ZM294.711 34.896C295.815 34.896 296.759 35.136 297.543 35.616C298.343 36.096 298.951 36.776 299.367 37.656C299.799 38.52 300.015 39.536 300.015 40.704V41.976H291.207C291.239 43.432 291.607 44.544 292.311 45.312C293.031 46.064 294.031 46.44 295.311 46.44C296.127 46.44 296.847 46.368 297.471 46.224C298.111 46.064 298.767 45.84 299.439 45.552V47.4C298.783 47.688 298.135 47.896 297.495 48.024C296.855 48.168 296.095 48.24 295.215 48.24C293.999 48.24 292.919 47.992 291.975 47.496C291.047 47 290.319 46.264 289.791 45.288C289.279 44.296 289.023 43.088 289.023 41.664C289.023 40.256 289.255 39.048 289.719 38.04C290.199 37.032 290.863 36.256 291.711 35.712C292.575 35.168 293.575 34.896 294.711 34.896ZM294.687 36.624C293.679 36.624 292.879 36.952 292.287 37.608C291.711 38.248 291.367 39.144 291.255 40.296H297.807C297.807 39.56 297.695 38.92 297.471 38.376C297.247 37.832 296.903 37.408 296.439 37.104C295.991 36.784 295.407 36.624 294.687 36.624ZM312.17 36.912H307.97V48H305.882V36.912H301.73V35.136H312.17V36.912Z" fill="#9A9A9A"/>
+                    <rect x="0.732422" width="58.5352" height="44.1507" rx="7.35846" fill="#9A9A9A"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M0 64.588C0 57.0001 2.88759 50.0866 7.62383 44.8865H50.9114L50.9116 44.8867H7.62516L7.62494 44.887H18.5994C13.8632 50.0871 10.9757 57.0005 10.9757 64.5883V77.9995H0V64.588Z" fill="#9A9A9A"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M52.3762 44.8865C57.1124 50.0866 60 57.0001 60 64.588V77.9995H49.0234V64.5883C49.0234 57.0005 46.1359 50.0871 41.3997 44.887H52.3751H52.3752L52.3749 44.8867H52.3749H41.3995H9.08846L9.08868 44.8865H52.3762Z" fill="#9A9A9A"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M0.730469 64.5881C0.730469 57.0003 3.61801 50.0868 8.35418 44.8867H8.4054C3.63986 50.1225 0.732196 57.0971 0.732196 64.7546V77.9996H0.730469V64.5881ZM11.7075 77.9996V77.9998H0.732196V77.9996H11.7075ZM19.3807 44.8867C14.6152 50.1225 11.7075 57.0971 11.7075 64.7546V77.9996H48.292V77.9998H59.2674V64.7546C59.2674 64.6214 59.2665 64.4885 59.2648 64.3558C59.2065 56.8592 56.3297 50.0337 51.6419 44.8867H51.5942C56.2769 50.0315 59.1657 56.8551 59.2648 64.3558C59.2654 64.4332 59.2657 64.5106 59.2657 64.5881V77.9996H48.292V64.7546C48.292 57.0971 45.3844 50.1225 40.6188 44.8867H19.3807Z" fill="#9A9A9A"/>
+                    <path d="M23.4141 33.1131V33.1131C26.4443 28.8109 32.8226 28.8109 35.8528 33.1131V33.1131" stroke="white" stroke-width="0.735846" stroke-linecap="round"/>
+                    <path d="M44.6328 11.7734L38.7886 16.3448C38.4119 16.6394 38.4119 17.2093 38.7886 17.504L44.6328 22.0753" stroke="white" stroke-width="0.735846" stroke-linecap="round"/>
+                    <path d="M15.3662 11.7734L21.2104 16.3448C21.5871 16.6394 21.5871 17.2093 21.2104 17.504L15.3662 22.0753" stroke="white" stroke-width="0.735846" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="modal-body d-flex justify-content-end">
+                <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="selectProductsCalcModal" aria-hidden="true" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="d-flex flex-column align-items-start" style="padding: 0;">
+                <h5 class="modal-body" style="font-weight: 400;font-size: 20px;line-height: 24px;">Изделия</h5>
+
+                <div class="modal-body d-flex" style="padding-top: 0">
+                    <button type="button" class="btn btn-outline-dark" data-bs-target="#productsCalcModal"
+                            data-bs-toggle="modal" data-bs-dismiss="modal" aria-label="Назад">
+                        <svg width="13" height="17" viewBox="0 0 13 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0.5 7L12.5 0.937822L12.5 13.0622L0.5 7Z" fill="#797979"/>
+                        </svg>
+
+                        <span style="align-self: center">Назад</span>
+                    </button>
+
+                    <button class="btn btn-dark" data-bs-target="#selectWindowsCalcModal"
+                            data-bs-toggle="modal" data-bs-dismiss="modal"
+                            type="button" aria-label="Добавить изделия" style="margin-left: 1.3vw">
+                        <span style="align-self: center">Далее</span>
+
+                        <svg width="12" height="16" viewBox="0 0 12 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 7L0 0.937822L0 13.0622L12 7Z" fill="#797979"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <hr class="horizontal-line">
+
+            <div class="modal-body">
+                <form method="post">
+                 {% csrf_token %}
+                <label>Профиль</label>
+                <select class="form-control" id="profile-select" name="profile-select">
+                    {% for el in profiles %}
+                    <option value="{{ el.pk }}">{{ el.name}}</option>
+                    {% endfor %}
+                </select>
+                <label>Фурнитура</label>
+                <select class="form-control" id="fitting-select" name="fitting-select">
+                    {% for el in fittings %}
+                    <option value="{{ el.pk }}">{{ el.name}}</option>
+                    {% endfor %}
+                </select>
+                <label>Стеклопакет</label>
+                <select class="form-control" id="filling-select" name="filling-select">
+                    {% for el in filling %}
+                    <option value="{{ el.pk }}">{{ el.name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            </form>
+
+            <div class="modal-body d-flex justify-content-end">
+                <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="selectWindowsCalcModal" aria-hidden="true" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <h5 class="modal-body" style="font-weight: 400;font-size: 20px;line-height: 24px;">Изделия</h5>
+
+            <div class="modal-body d-flex" style="padding-top: 0">
+                <button type="button" data-bs-target="#selectProductsCalcModal" data-bs-toggle="modal" data-bs-dismiss="modal"
+                        class="btn btn-outline-dark" aria-label="Назад">
+                    <svg width="13" height="17" viewBox="0 0 13 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0.5 7L12.5 0.937822L12.5 13.0622L0.5 7Z" fill="#797979"/>
+                    </svg>
+
+                    <span style="align-self: center">Назад</span>
+                </button>
+            </div>
+
+            <hr class="horizontal-line">
+
+            <div class="modal-body row">
+                <button class="btn col-sm-12 col-xl-4 col-lg shadow-none"
+                        data-bs-target="#oneSashModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">
+                    <svg class="window-button" width="296" height="164" viewBox="0 0 296 164" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M126.703 14.6289L122.37 10.2811M169.387 14.7189L173.503 10.5885M169.513 105.371L173.63 109.502M126.613 105.281L122.28 109.629M174 10H122V110H174V10ZM169.667 14.3478H126.333V105.652H169.667V14.3478ZM168.8 15.2174H127.2V104.783H168.8V15.2174Z"
+                              stroke="black" stroke-width="0.434783"/>
+                        <path d="M85.96 138.556C85.96 139.552 85.834 140.458 85.582 141.274C85.33 142.078 84.952 142.774 84.448 143.362C83.956 143.95 83.338 144.4 82.594 144.712C81.862 145.024 81.01 145.18 80.038 145.18C79.03 145.18 78.154 145.024 77.41 144.712C76.666 144.388 76.048 143.938 75.556 143.362C75.064 142.774 74.698 142.072 74.458 141.256C74.218 140.44 74.098 139.534 74.098 138.538C74.098 137.218 74.314 136.066 74.746 135.082C75.178 134.098 75.832 133.33 76.708 132.778C77.596 132.226 78.712 131.95 80.056 131.95C81.34 131.95 82.42 132.226 83.296 132.778C84.172 133.318 84.832 134.086 85.276 135.082C85.732 136.066 85.96 137.224 85.96 138.556ZM75.808 138.556C75.808 139.636 75.958 140.566 76.258 141.346C76.558 142.126 77.02 142.726 77.644 143.146C78.28 143.566 79.078 143.776 80.038 143.776C81.01 143.776 81.802 143.566 82.414 143.146C83.038 142.726 83.5 142.126 83.8 141.346C84.1 140.566 84.25 139.636 84.25 138.556C84.25 136.936 83.914 135.67 83.242 134.758C82.57 133.834 81.508 133.372 80.056 133.372C79.084 133.372 78.28 133.582 77.644 134.002C77.02 134.41 76.558 135.004 76.258 135.784C75.958 136.552 75.808 137.476 75.808 138.556ZM95.5807 135.352V143.668H96.9847V148.348H95.4547V145H88.7407V148.348H87.2287V143.668H88.0027C88.5547 142.9 89.0107 142.066 89.3707 141.166C89.7427 140.254 90.0187 139.306 90.1987 138.322C90.3907 137.326 90.4927 136.336 90.5047 135.352H95.5807ZM91.9087 136.594C91.8607 137.41 91.7347 138.256 91.5307 139.132C91.3267 139.996 91.0627 140.824 90.7387 141.616C90.4267 142.408 90.0607 143.092 89.6407 143.668H94.0507V136.594H91.9087ZM100.46 135.352V139.366H105.698V135.352H107.282V145H105.698V140.698H100.46V145H98.8757V135.352H100.46ZM118.725 140.158C118.725 140.962 118.617 141.676 118.401 142.3C118.197 142.912 117.897 143.434 117.501 143.866C117.117 144.298 116.643 144.628 116.079 144.856C115.527 145.072 114.909 145.18 114.225 145.18C113.589 145.18 113.001 145.072 112.461 144.856C111.921 144.628 111.453 144.298 111.057 143.866C110.661 143.434 110.349 142.912 110.121 142.3C109.905 141.676 109.797 140.962 109.797 140.158C109.797 139.09 109.977 138.19 110.337 137.458C110.697 136.714 111.213 136.15 111.885 135.766C112.557 135.37 113.355 135.172 114.279 135.172C115.155 135.172 115.923 135.37 116.583 135.766C117.255 136.15 117.777 136.714 118.149 137.458C118.533 138.19 118.725 139.09 118.725 140.158ZM111.435 140.158C111.435 140.914 111.531 141.574 111.723 142.138C111.927 142.69 112.239 143.116 112.659 143.416C113.079 143.716 113.613 143.866 114.261 143.866C114.909 143.866 115.443 143.716 115.863 143.416C116.283 143.116 116.589 142.69 116.781 142.138C116.985 141.574 117.087 140.914 117.087 140.158C117.087 139.39 116.985 138.736 116.781 138.196C116.577 137.656 116.265 137.242 115.845 136.954C115.437 136.654 114.903 136.504 114.243 136.504C113.259 136.504 112.545 136.828 112.101 137.476C111.657 138.124 111.435 139.018 111.435 140.158ZM125.105 145.18C124.253 145.18 123.491 145.006 122.819 144.658C122.159 144.31 121.637 143.77 121.253 143.038C120.881 142.306 120.695 141.37 120.695 140.23C120.695 139.042 120.893 138.076 121.289 137.332C121.685 136.588 122.219 136.042 122.891 135.694C123.575 135.346 124.349 135.172 125.213 135.172C125.705 135.172 126.179 135.226 126.635 135.334C127.091 135.43 127.463 135.55 127.751 135.694L127.265 137.008C126.977 136.9 126.641 136.798 126.257 136.702C125.873 136.606 125.513 136.558 125.177 136.558C124.529 136.558 123.995 136.696 123.575 136.972C123.155 137.248 122.843 137.656 122.639 138.196C122.435 138.736 122.333 139.408 122.333 140.212C122.333 140.98 122.435 141.634 122.639 142.174C122.843 142.714 123.149 143.122 123.557 143.398C123.965 143.674 124.475 143.812 125.087 143.812C125.615 143.812 126.077 143.758 126.473 143.65C126.881 143.542 127.253 143.41 127.589 143.254V144.658C127.265 144.826 126.905 144.952 126.509 145.036C126.125 145.132 125.657 145.18 125.105 145.18ZM136.544 136.684H133.394V145H131.828V136.684H128.714V135.352H136.544V136.684ZM146.202 137.782C146.202 138.382 146.022 138.85 145.662 139.186C145.302 139.522 144.84 139.75 144.276 139.87V139.942C144.876 140.026 145.398 140.242 145.842 140.59C146.286 140.926 146.508 141.454 146.508 142.174C146.508 142.582 146.43 142.96 146.274 143.308C146.13 143.656 145.902 143.956 145.59 144.208C145.278 144.46 144.876 144.658 144.384 144.802C143.892 144.934 143.298 145 142.602 145H138.444V135.352H142.584C143.268 135.352 143.88 135.43 144.42 135.586C144.972 135.73 145.404 135.982 145.716 136.342C146.04 136.69 146.202 137.17 146.202 137.782ZM144.87 142.174C144.87 141.622 144.66 141.226 144.24 140.986C143.82 140.746 143.202 140.626 142.386 140.626H140.028V143.722H142.422C143.214 143.722 143.82 143.608 144.24 143.38C144.66 143.14 144.87 142.738 144.87 142.174ZM144.6 137.98C144.6 137.524 144.432 137.194 144.096 136.99C143.772 136.774 143.238 136.666 142.494 136.666H140.028V139.312H142.206C142.986 139.312 143.58 139.204 143.988 138.988C144.396 138.772 144.6 138.436 144.6 137.98ZM157.203 140.158C157.203 140.962 157.095 141.676 156.879 142.3C156.675 142.912 156.375 143.434 155.979 143.866C155.595 144.298 155.121 144.628 154.557 144.856C154.005 145.072 153.387 145.18 152.703 145.18C152.067 145.18 151.479 145.072 150.939 144.856C150.399 144.628 149.931 144.298 149.535 143.866C149.139 143.434 148.827 142.912 148.599 142.3C148.383 141.676 148.275 140.962 148.275 140.158C148.275 139.09 148.455 138.19 148.815 137.458C149.175 136.714 149.691 136.15 150.363 135.766C151.035 135.37 151.833 135.172 152.757 135.172C153.633 135.172 154.401 135.37 155.061 135.766C155.733 136.15 156.255 136.714 156.627 137.458C157.011 138.19 157.203 139.09 157.203 140.158ZM149.913 140.158C149.913 140.914 150.009 141.574 150.201 142.138C150.405 142.69 150.717 143.116 151.137 143.416C151.557 143.716 152.091 143.866 152.739 143.866C153.387 143.866 153.921 143.716 154.341 143.416C154.761 143.116 155.067 142.69 155.259 142.138C155.463 141.574 155.565 140.914 155.565 140.158C155.565 139.39 155.463 138.736 155.259 138.196C155.055 137.656 154.743 137.242 154.323 136.954C153.915 136.654 153.381 136.504 152.721 136.504C151.737 136.504 151.023 136.828 150.579 137.476C150.135 138.124 149.913 139.018 149.913 140.158ZM164.304 135.172C165.492 135.172 166.446 135.586 167.166 136.414C167.898 137.242 168.264 138.49 168.264 140.158C168.264 141.25 168.096 142.174 167.76 142.93C167.436 143.674 166.974 144.238 166.374 144.622C165.786 144.994 165.09 145.18 164.286 145.18C163.794 145.18 163.356 145.114 162.972 144.982C162.588 144.85 162.258 144.682 161.982 144.478C161.718 144.262 161.49 144.028 161.298 143.776H161.19C161.214 143.98 161.238 144.238 161.262 144.55C161.286 144.862 161.298 145.132 161.298 145.36V149.32H159.714V135.352H161.01L161.226 136.666H161.298C161.49 136.39 161.718 136.138 161.982 135.91C162.258 135.682 162.582 135.502 162.954 135.37C163.338 135.238 163.788 135.172 164.304 135.172ZM164.016 136.504C163.368 136.504 162.846 136.63 162.45 136.882C162.054 137.122 161.766 137.488 161.586 137.98C161.406 138.472 161.31 139.096 161.298 139.852V140.158C161.298 140.95 161.382 141.622 161.55 142.174C161.718 142.726 162 143.146 162.396 143.434C162.804 143.722 163.356 143.866 164.052 143.866C164.64 143.866 165.12 143.704 165.492 143.38C165.876 143.056 166.158 142.618 166.338 142.066C166.53 141.502 166.626 140.86 166.626 140.14C166.626 139.036 166.41 138.154 165.978 137.494C165.558 136.834 164.904 136.504 164.016 136.504ZM171.998 138.862C171.998 139.426 172.154 139.846 172.466 140.122C172.79 140.386 173.252 140.518 173.852 140.518C174.452 140.518 174.998 140.428 175.49 140.248C175.982 140.056 176.486 139.804 177.002 139.492V135.352H178.586V145H177.002V140.698C176.462 141.046 175.928 141.322 175.4 141.526C174.884 141.718 174.26 141.814 173.528 141.814C172.544 141.814 171.776 141.556 171.224 141.04C170.684 140.524 170.414 139.834 170.414 138.97V135.352H171.998V138.862ZM185.305 135.19C186.481 135.19 187.351 135.448 187.915 135.964C188.479 136.48 188.761 137.302 188.761 138.43V145H187.609L187.303 143.632H187.231C186.955 143.98 186.667 144.274 186.367 144.514C186.079 144.742 185.743 144.91 185.359 145.018C184.987 145.126 184.531 145.18 183.991 145.18C183.415 145.18 182.893 145.078 182.425 144.874C181.969 144.67 181.609 144.358 181.345 143.938C181.081 143.506 180.949 142.966 180.949 142.318C180.949 141.358 181.327 140.62 182.083 140.104C182.839 139.576 184.003 139.288 185.575 139.24L187.213 139.186V138.61C187.213 137.806 187.039 137.248 186.691 136.936C186.343 136.624 185.851 136.468 185.215 136.468C184.711 136.468 184.231 136.546 183.775 136.702C183.319 136.846 182.893 137.014 182.497 137.206L182.011 136.018C182.431 135.79 182.929 135.598 183.505 135.442C184.081 135.274 184.681 135.19 185.305 135.19ZM185.773 140.338C184.573 140.386 183.739 140.578 183.271 140.914C182.815 141.25 182.587 141.724 182.587 142.336C182.587 142.876 182.749 143.272 183.073 143.524C183.409 143.776 183.835 143.902 184.351 143.902C185.167 143.902 185.845 143.68 186.385 143.236C186.925 142.78 187.195 142.084 187.195 141.148V140.284L185.773 140.338ZM198.401 136.684H195.251V145H193.685V136.684H190.571V135.352H198.401V136.684ZM200.301 145V135.352H201.885V139.312H204.387C205.227 139.312 205.917 139.414 206.457 139.618C206.997 139.822 207.399 140.128 207.663 140.536C207.927 140.932 208.059 141.436 208.059 142.048C208.059 142.648 207.927 143.17 207.663 143.614C207.411 144.058 207.009 144.4 206.457 144.64C205.917 144.88 205.203 145 204.315 145H200.301ZM204.171 143.722C204.855 143.722 205.413 143.608 205.845 143.38C206.277 143.14 206.493 142.726 206.493 142.138C206.493 141.55 206.295 141.154 205.899 140.95C205.503 140.734 204.933 140.626 204.189 140.626H201.885V143.722H204.171ZM209.661 145V135.352H211.245V145H209.661ZM218.037 135.172C218.865 135.172 219.573 135.352 220.161 135.712C220.761 136.072 221.217 136.582 221.529 137.242C221.853 137.89 222.015 138.652 222.015 139.528V140.482H215.409C215.433 141.574 215.709 142.408 216.237 142.984C216.777 143.548 217.527 143.83 218.487 143.83C219.099 143.83 219.639 143.776 220.107 143.668C220.587 143.548 221.079 143.38 221.583 143.164V144.55C221.091 144.766 220.605 144.922 220.125 145.018C219.645 145.126 219.075 145.18 218.415 145.18C217.503 145.18 216.693 144.994 215.985 144.622C215.289 144.25 214.743 143.698 214.347 142.966C213.963 142.222 213.771 141.316 213.771 140.248C213.771 139.192 213.945 138.286 214.293 137.53C214.653 136.774 215.151 136.192 215.787 135.784C216.435 135.376 217.185 135.172 218.037 135.172ZM218.019 136.468C217.263 136.468 216.663 136.714 216.219 137.206C215.787 137.686 215.529 138.358 215.445 139.222H220.359C220.359 138.67 220.275 138.19 220.107 137.782C219.939 137.374 219.681 137.056 219.333 136.828C218.997 136.588 218.559 136.468 218.019 136.468Z"
+                              fill="black"/>
+                        <line x1="20" y1="116.5" x2="276" y2="116.5" stroke="#E5E5E5"/>
+                    </svg>
+                </button>
+
+                <button class="btn col-sm-12 col-xl-4 col-lg shadow-none"
+                        data-bs-target="#twoSashModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">
+                    <svg class="window-button" width="304" height="172" viewBox="0 0 304 172" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M100.703 14.6289L96.3699 10.2811M143.387 14.7189L147.503 10.5885M143.513 105.371L147.63 109.502M100.613 105.281L96.2801 109.629M148 10H96V110H148V10ZM143.667 14.3478H100.333V105.652H143.667V14.3478ZM142.8 15.2174H101.2V104.783H142.8V15.2174Z"
+                              stroke="black" stroke-width="0.434783"/>
+                        <path d="M152.703 14.6289L148.37 10.2811M195.387 14.7189L199.503 10.5885M195.513 105.371L199.63 109.502M152.613 105.281L148.28 109.629M200 10H148V110H200V10ZM195.667 14.3478H152.333V105.652H195.667V14.3478ZM194.8 15.2174H153.2V104.783H194.8V15.2174Z"
+                              stroke="black" stroke-width="0.434783"/>
+                        <path d="M86.7019 132.148V143.56H88.3399V148.384H86.7919V145H77.9539V148.384H76.4059V143.56H77.3959C77.8279 142.816 78.2359 141.982 78.6199 141.058C79.0159 140.134 79.3639 139.168 79.6639 138.16C79.9639 137.14 80.2099 136.12 80.4019 135.1C80.5939 134.08 80.7139 133.096 80.7619 132.148H86.7019ZM82.1839 133.606C82.1359 134.302 82.0159 135.088 81.8239 135.964C81.6439 136.84 81.4099 137.74 81.1219 138.664C80.8459 139.576 80.5339 140.458 80.1859 141.31C79.8499 142.162 79.4899 142.912 79.1059 143.56H85.0999V133.606H82.1839ZM98.0312 137.782C98.0312 138.382 97.8512 138.85 97.4912 139.186C97.1312 139.522 96.6692 139.75 96.1052 139.87V139.942C96.7052 140.026 97.2272 140.242 97.6712 140.59C98.1152 140.926 98.3372 141.454 98.3372 142.174C98.3372 142.582 98.2592 142.96 98.1032 143.308C97.9592 143.656 97.7312 143.956 97.4192 144.208C97.1072 144.46 96.7052 144.658 96.2132 144.802C95.7212 144.934 95.1272 145 94.4312 145H90.2732V135.352H94.4132C95.0972 135.352 95.7092 135.43 96.2492 135.586C96.8012 135.73 97.2332 135.982 97.5452 136.342C97.8692 136.69 98.0312 137.17 98.0312 137.782ZM96.6992 142.174C96.6992 141.622 96.4892 141.226 96.0692 140.986C95.6492 140.746 95.0312 140.626 94.2152 140.626H91.8572V143.722H94.2512C95.0432 143.722 95.6492 143.608 96.0692 143.38C96.4892 143.14 96.6992 142.738 96.6992 142.174ZM96.4292 137.98C96.4292 137.524 96.2612 137.194 95.9252 136.99C95.6012 136.774 95.0672 136.666 94.3232 136.666H91.8572V139.312H94.0352C94.8152 139.312 95.4092 139.204 95.8172 138.988C96.2252 138.772 96.4292 138.436 96.4292 137.98ZM99.1323 135.352H100.824L102.912 140.842C103.032 141.166 103.14 141.478 103.236 141.778C103.344 142.078 103.44 142.372 103.524 142.66C103.608 142.936 103.674 143.206 103.722 143.47H103.794C103.866 143.17 103.98 142.78 104.136 142.3C104.292 141.808 104.454 141.316 104.622 140.824L106.584 135.352H108.294L104.136 146.332C103.908 146.932 103.638 147.454 103.326 147.898C103.026 148.354 102.654 148.702 102.21 148.942C101.778 149.194 101.25 149.32 100.626 149.32C100.338 149.32 100.086 149.302 99.8703 149.266C99.6543 149.242 99.4683 149.212 99.3123 149.176V147.916C99.4443 147.94 99.6003 147.964 99.7803 147.988C99.9723 148.012 100.17 148.024 100.374 148.024C100.746 148.024 101.064 147.952 101.328 147.808C101.604 147.676 101.838 147.478 102.03 147.214C102.222 146.962 102.384 146.662 102.516 146.314L103.02 145.036L99.1323 135.352ZM112.106 140.068L108.776 135.352H110.576L113.06 138.988L115.526 135.352H117.308L113.978 140.068L117.488 145H115.688L113.06 141.148L110.396 145H108.614L112.106 140.068ZM122.866 145.18C122.014 145.18 121.252 145.006 120.58 144.658C119.92 144.31 119.398 143.77 119.014 143.038C118.642 142.306 118.456 141.37 118.456 140.23C118.456 139.042 118.654 138.076 119.05 137.332C119.446 136.588 119.98 136.042 120.652 135.694C121.336 135.346 122.11 135.172 122.974 135.172C123.466 135.172 123.94 135.226 124.396 135.334C124.852 135.43 125.224 135.55 125.512 135.694L125.026 137.008C124.738 136.9 124.402 136.798 124.018 136.702C123.634 136.606 123.274 136.558 122.938 136.558C122.29 136.558 121.756 136.696 121.336 136.972C120.916 137.248 120.604 137.656 120.4 138.196C120.196 138.736 120.094 139.408 120.094 140.212C120.094 140.98 120.196 141.634 120.4 142.174C120.604 142.714 120.91 143.122 121.318 143.398C121.726 143.674 122.236 143.812 122.848 143.812C123.376 143.812 123.838 143.758 124.234 143.65C124.642 143.542 125.014 143.41 125.35 143.254V144.658C125.026 144.826 124.666 144.952 124.27 145.036C123.886 145.132 123.418 145.18 122.866 145.18ZM134.304 136.684H131.154V145H129.588V136.684H126.474V135.352H134.304V136.684ZM143.963 137.782C143.963 138.382 143.783 138.85 143.423 139.186C143.063 139.522 142.601 139.75 142.037 139.87V139.942C142.637 140.026 143.159 140.242 143.603 140.59C144.047 140.926 144.269 141.454 144.269 142.174C144.269 142.582 144.191 142.96 144.035 143.308C143.891 143.656 143.663 143.956 143.351 144.208C143.039 144.46 142.637 144.658 142.145 144.802C141.653 144.934 141.059 145 140.363 145H136.205V135.352H140.345C141.029 135.352 141.641 135.43 142.181 135.586C142.733 135.73 143.165 135.982 143.477 136.342C143.801 136.69 143.963 137.17 143.963 137.782ZM142.631 142.174C142.631 141.622 142.421 141.226 142.001 140.986C141.581 140.746 140.963 140.626 140.147 140.626H137.789V143.722H140.183C140.975 143.722 141.581 143.608 142.001 143.38C142.421 143.14 142.631 142.738 142.631 142.174ZM142.361 137.98C142.361 137.524 142.193 137.194 141.857 136.99C141.533 136.774 140.999 136.666 140.255 136.666H137.789V139.312H139.967C140.747 139.312 141.341 139.204 141.749 138.988C142.157 138.772 142.361 138.436 142.361 137.98ZM154.964 140.158C154.964 140.962 154.856 141.676 154.64 142.3C154.436 142.912 154.136 143.434 153.74 143.866C153.356 144.298 152.882 144.628 152.318 144.856C151.766 145.072 151.148 145.18 150.464 145.18C149.828 145.18 149.24 145.072 148.7 144.856C148.16 144.628 147.692 144.298 147.296 143.866C146.9 143.434 146.588 142.912 146.36 142.3C146.144 141.676 146.036 140.962 146.036 140.158C146.036 139.09 146.216 138.19 146.576 137.458C146.936 136.714 147.452 136.15 148.124 135.766C148.796 135.37 149.594 135.172 150.518 135.172C151.394 135.172 152.162 135.37 152.822 135.766C153.494 136.15 154.016 136.714 154.388 137.458C154.772 138.19 154.964 139.09 154.964 140.158ZM147.674 140.158C147.674 140.914 147.77 141.574 147.962 142.138C148.166 142.69 148.478 143.116 148.898 143.416C149.318 143.716 149.852 143.866 150.5 143.866C151.148 143.866 151.682 143.716 152.102 143.416C152.522 143.116 152.828 142.69 153.02 142.138C153.224 141.574 153.326 140.914 153.326 140.158C153.326 139.39 153.224 138.736 153.02 138.196C152.816 137.656 152.504 137.242 152.084 136.954C151.676 136.654 151.142 136.504 150.482 136.504C149.498 136.504 148.784 136.828 148.34 137.476C147.896 138.124 147.674 139.018 147.674 140.158ZM162.064 135.172C163.252 135.172 164.206 135.586 164.926 136.414C165.658 137.242 166.024 138.49 166.024 140.158C166.024 141.25 165.856 142.174 165.52 142.93C165.196 143.674 164.734 144.238 164.134 144.622C163.546 144.994 162.85 145.18 162.046 145.18C161.554 145.18 161.116 145.114 160.732 144.982C160.348 144.85 160.018 144.682 159.742 144.478C159.478 144.262 159.25 144.028 159.058 143.776H158.95C158.974 143.98 158.998 144.238 159.022 144.55C159.046 144.862 159.058 145.132 159.058 145.36V149.32H157.474V135.352H158.77L158.986 136.666H159.058C159.25 136.39 159.478 136.138 159.742 135.91C160.018 135.682 160.342 135.502 160.714 135.37C161.098 135.238 161.548 135.172 162.064 135.172ZM161.776 136.504C161.128 136.504 160.606 136.63 160.21 136.882C159.814 137.122 159.526 137.488 159.346 137.98C159.166 138.472 159.07 139.096 159.058 139.852V140.158C159.058 140.95 159.142 141.622 159.31 142.174C159.478 142.726 159.76 143.146 160.156 143.434C160.564 143.722 161.116 143.866 161.812 143.866C162.4 143.866 162.88 143.704 163.252 143.38C163.636 143.056 163.918 142.618 164.098 142.066C164.29 141.502 164.386 140.86 164.386 140.14C164.386 139.036 164.17 138.154 163.738 137.494C163.318 136.834 162.664 136.504 161.776 136.504ZM169.759 138.862C169.759 139.426 169.915 139.846 170.227 140.122C170.551 140.386 171.013 140.518 171.613 140.518C172.213 140.518 172.759 140.428 173.251 140.248C173.743 140.056 174.247 139.804 174.763 139.492V135.352H176.347V145H174.763V140.698C174.223 141.046 173.689 141.322 173.161 141.526C172.645 141.718 172.021 141.814 171.289 141.814C170.305 141.814 169.537 141.556 168.985 141.04C168.445 140.524 168.175 139.834 168.175 138.97V135.352H169.759V138.862ZM183.066 135.19C184.242 135.19 185.112 135.448 185.676 135.964C186.24 136.48 186.522 137.302 186.522 138.43V145H185.37L185.064 143.632H184.992C184.716 143.98 184.428 144.274 184.128 144.514C183.84 144.742 183.504 144.91 183.12 145.018C182.748 145.126 182.292 145.18 181.752 145.18C181.176 145.18 180.654 145.078 180.186 144.874C179.73 144.67 179.37 144.358 179.106 143.938C178.842 143.506 178.71 142.966 178.71 142.318C178.71 141.358 179.088 140.62 179.844 140.104C180.6 139.576 181.764 139.288 183.336 139.24L184.974 139.186V138.61C184.974 137.806 184.8 137.248 184.452 136.936C184.104 136.624 183.612 136.468 182.976 136.468C182.472 136.468 181.992 136.546 181.536 136.702C181.08 136.846 180.654 137.014 180.258 137.206L179.772 136.018C180.192 135.79 180.69 135.598 181.266 135.442C181.842 135.274 182.442 135.19 183.066 135.19ZM183.534 140.338C182.334 140.386 181.5 140.578 181.032 140.914C180.576 141.25 180.348 141.724 180.348 142.336C180.348 142.876 180.51 143.272 180.834 143.524C181.17 143.776 181.596 143.902 182.112 143.902C182.928 143.902 183.606 143.68 184.146 143.236C184.686 142.78 184.956 142.084 184.956 141.148V140.284L183.534 140.338ZM196.162 136.684H193.012V145H191.446V136.684H188.332V135.352H196.162V136.684ZM198.062 145V135.352H199.646V139.312H202.148C202.988 139.312 203.678 139.414 204.218 139.618C204.758 139.822 205.16 140.128 205.424 140.536C205.688 140.932 205.82 141.436 205.82 142.048C205.82 142.648 205.688 143.17 205.424 143.614C205.172 144.058 204.77 144.4 204.218 144.64C203.678 144.88 202.964 145 202.076 145H198.062ZM201.932 143.722C202.616 143.722 203.174 143.608 203.606 143.38C204.038 143.14 204.254 142.726 204.254 142.138C204.254 141.55 204.056 141.154 203.66 140.95C203.264 140.734 202.694 140.626 201.95 140.626H199.646V143.722H201.932ZM207.422 145V135.352H209.006V145H207.422ZM215.798 135.172C216.626 135.172 217.334 135.352 217.922 135.712C218.522 136.072 218.978 136.582 219.29 137.242C219.614 137.89 219.776 138.652 219.776 139.528V140.482H213.17C213.194 141.574 213.47 142.408 213.998 142.984C214.538 143.548 215.288 143.83 216.248 143.83C216.86 143.83 217.4 143.776 217.868 143.668C218.348 143.548 218.84 143.38 219.344 143.164V144.55C218.852 144.766 218.366 144.922 217.886 145.018C217.406 145.126 216.836 145.18 216.176 145.18C215.264 145.18 214.454 144.994 213.746 144.622C213.05 144.25 212.504 143.698 212.108 142.966C211.724 142.222 211.532 141.316 211.532 140.248C211.532 139.192 211.706 138.286 212.054 137.53C212.414 136.774 212.912 136.192 213.548 135.784C214.196 135.376 214.946 135.172 215.798 135.172ZM215.78 136.468C215.024 136.468 214.424 136.714 213.98 137.206C213.548 137.686 213.29 138.358 213.206 139.222H218.12C218.12 138.67 218.036 138.19 217.868 137.782C217.7 137.374 217.442 137.056 217.094 136.828C216.758 136.588 216.32 136.468 215.78 136.468Z"
+                              fill="black"/>
+                        <line x1="20" y1="116.5" x2="276" y2="116.5" stroke="#E5E5E5"/>
+                    </svg>
+                </button>
+
+                <button class="btn col-sm-12 col-xl-4 col-lg shadow-none"
+                        data-bs-target="#threeSashModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">
+                    <svg class="window-button" width="296" height="164" viewBox="0 0 296 164" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M126.703 14.6289L122.37 10.2811M169.387 14.7189L173.503 10.5885M169.513 105.371L173.63 109.502M126.613 105.281L122.28 109.629M174 10H122V110H174V10ZM169.667 14.3478H126.333V105.652H169.667V14.3478ZM168.8 15.2174H127.2V104.783H168.8V15.2174Z"
+                              stroke="black" stroke-width="0.434783"/>
+                        <path d="M178.703 14.6289L174.37 10.2811M221.387 14.7189L225.503 10.5885M221.513 105.371L225.63 109.502M178.613 105.281L174.28 109.629M226 10H174V110H226V10ZM221.667 14.3478H178.333V105.652H221.667V14.3478ZM220.8 15.2174H179.2V104.783H220.8V15.2174Z"
+                              stroke="black" stroke-width="0.434783"/>
+                        <path d="M74.7032 14.6289L70.3699 10.2811M117.387 14.7189L121.503 10.5885M117.513 105.371L121.63 109.502M74.6135 105.281L70.2801 109.629M122 10H70V110H122V10ZM117.667 14.3478H74.3333V105.652H117.667V14.3478ZM116.8 15.2174H75.2V104.783H116.8V15.2174Z"
+                              stroke="black" stroke-width="0.434783"/>
+                        <path d="M81.814 145H80.194V133.57H76.18V132.148H85.81V133.57H81.814V145ZM91.2255 135.172C92.4135 135.172 93.3675 135.586 94.0875 136.414C94.8195 137.242 95.1855 138.49 95.1855 140.158C95.1855 141.25 95.0175 142.174 94.6815 142.93C94.3575 143.674 93.8955 144.238 93.2955 144.622C92.7075 144.994 92.0115 145.18 91.2075 145.18C90.7155 145.18 90.2775 145.114 89.8935 144.982C89.5095 144.85 89.1795 144.682 88.9035 144.478C88.6395 144.262 88.4115 144.028 88.2195 143.776H88.1115C88.1355 143.98 88.1595 144.238 88.1835 144.55C88.2075 144.862 88.2195 145.132 88.2195 145.36V149.32H86.6355V135.352H87.9315L88.1475 136.666H88.2195C88.4115 136.39 88.6395 136.138 88.9035 135.91C89.1795 135.682 89.5035 135.502 89.8755 135.37C90.2595 135.238 90.7095 135.172 91.2255 135.172ZM90.9375 136.504C90.2895 136.504 89.7675 136.63 89.3715 136.882C88.9755 137.122 88.6875 137.488 88.5075 137.98C88.3275 138.472 88.2315 139.096 88.2195 139.852V140.158C88.2195 140.95 88.3035 141.622 88.4715 142.174C88.6395 142.726 88.9215 143.146 89.3175 143.434C89.7255 143.722 90.2775 143.866 90.9735 143.866C91.5615 143.866 92.0415 143.704 92.4135 143.38C92.7975 143.056 93.0795 142.618 93.2595 142.066C93.4515 141.502 93.5475 140.86 93.5475 140.14C93.5475 139.036 93.3315 138.154 92.8995 137.494C92.4795 136.834 91.8255 136.504 90.9375 136.504ZM101.436 135.172C102.264 135.172 102.972 135.352 103.56 135.712C104.16 136.072 104.616 136.582 104.928 137.242C105.252 137.89 105.414 138.652 105.414 139.528V140.482H98.8077C98.8317 141.574 99.1077 142.408 99.6357 142.984C100.176 143.548 100.926 143.83 101.886 143.83C102.498 143.83 103.038 143.776 103.506 143.668C103.986 143.548 104.478 143.38 104.982 143.164V144.55C104.49 144.766 104.004 144.922 103.524 145.018C103.044 145.126 102.474 145.18 101.814 145.18C100.902 145.18 100.092 144.994 99.3837 144.622C98.6877 144.25 98.1417 143.698 97.7457 142.966C97.3617 142.222 97.1697 141.316 97.1697 140.248C97.1697 139.192 97.3437 138.286 97.6917 137.53C98.0517 136.774 98.5497 136.192 99.1857 135.784C99.8337 135.376 100.584 135.172 101.436 135.172ZM101.418 136.468C100.662 136.468 100.062 136.714 99.6177 137.206C99.1857 137.686 98.9277 138.358 98.8437 139.222H103.758C103.758 138.67 103.674 138.19 103.506 137.782C103.338 137.374 103.08 137.056 102.732 136.828C102.396 136.588 101.958 136.468 101.418 136.468ZM110.156 140.068L106.826 135.352H108.626L111.11 138.988L113.576 135.352H115.358L112.028 140.068L115.538 145H113.738L111.11 141.148L108.446 145H106.664L110.156 140.068ZM120.916 145.18C120.064 145.18 119.302 145.006 118.63 144.658C117.97 144.31 117.448 143.77 117.064 143.038C116.692 142.306 116.506 141.37 116.506 140.23C116.506 139.042 116.704 138.076 117.1 137.332C117.496 136.588 118.03 136.042 118.702 135.694C119.386 135.346 120.16 135.172 121.024 135.172C121.516 135.172 121.99 135.226 122.446 135.334C122.902 135.43 123.274 135.55 123.562 135.694L123.076 137.008C122.788 136.9 122.452 136.798 122.068 136.702C121.684 136.606 121.324 136.558 120.988 136.558C120.34 136.558 119.806 136.696 119.386 136.972C118.966 137.248 118.654 137.656 118.45 138.196C118.246 138.736 118.144 139.408 118.144 140.212C118.144 140.98 118.246 141.634 118.45 142.174C118.654 142.714 118.96 143.122 119.368 143.398C119.776 143.674 120.286 143.812 120.898 143.812C121.426 143.812 121.888 143.758 122.284 143.65C122.692 143.542 123.064 143.41 123.4 143.254V144.658C123.076 144.826 122.716 144.952 122.32 145.036C121.936 145.132 121.468 145.18 120.916 145.18ZM132.354 136.684H129.204V145H127.638V136.684H124.524V135.352H132.354V136.684ZM142.013 137.782C142.013 138.382 141.833 138.85 141.473 139.186C141.113 139.522 140.651 139.75 140.087 139.87V139.942C140.687 140.026 141.209 140.242 141.653 140.59C142.097 140.926 142.319 141.454 142.319 142.174C142.319 142.582 142.241 142.96 142.085 143.308C141.941 143.656 141.713 143.956 141.401 144.208C141.089 144.46 140.687 144.658 140.195 144.802C139.703 144.934 139.109 145 138.413 145H134.255V135.352H138.395C139.079 135.352 139.691 135.43 140.231 135.586C140.783 135.73 141.215 135.982 141.527 136.342C141.851 136.69 142.013 137.17 142.013 137.782ZM140.681 142.174C140.681 141.622 140.471 141.226 140.051 140.986C139.631 140.746 139.013 140.626 138.197 140.626H135.839V143.722H138.233C139.025 143.722 139.631 143.608 140.051 143.38C140.471 143.14 140.681 142.738 140.681 142.174ZM140.411 137.98C140.411 137.524 140.243 137.194 139.907 136.99C139.583 136.774 139.049 136.666 138.305 136.666H135.839V139.312H138.017C138.797 139.312 139.391 139.204 139.799 138.988C140.207 138.772 140.411 138.436 140.411 137.98ZM153.014 140.158C153.014 140.962 152.906 141.676 152.69 142.3C152.486 142.912 152.186 143.434 151.79 143.866C151.406 144.298 150.932 144.628 150.368 144.856C149.816 145.072 149.198 145.18 148.514 145.18C147.878 145.18 147.29 145.072 146.75 144.856C146.21 144.628 145.742 144.298 145.346 143.866C144.95 143.434 144.638 142.912 144.41 142.3C144.194 141.676 144.086 140.962 144.086 140.158C144.086 139.09 144.266 138.19 144.626 137.458C144.986 136.714 145.502 136.15 146.174 135.766C146.846 135.37 147.644 135.172 148.568 135.172C149.444 135.172 150.212 135.37 150.872 135.766C151.544 136.15 152.066 136.714 152.438 137.458C152.822 138.19 153.014 139.09 153.014 140.158ZM145.724 140.158C145.724 140.914 145.82 141.574 146.012 142.138C146.216 142.69 146.528 143.116 146.948 143.416C147.368 143.716 147.902 143.866 148.55 143.866C149.198 143.866 149.732 143.716 150.152 143.416C150.572 143.116 150.878 142.69 151.07 142.138C151.274 141.574 151.376 140.914 151.376 140.158C151.376 139.39 151.274 138.736 151.07 138.196C150.866 137.656 150.554 137.242 150.134 136.954C149.726 136.654 149.192 136.504 148.532 136.504C147.548 136.504 146.834 136.828 146.39 137.476C145.946 138.124 145.724 139.018 145.724 140.158ZM160.114 135.172C161.302 135.172 162.256 135.586 162.976 136.414C163.708 137.242 164.074 138.49 164.074 140.158C164.074 141.25 163.906 142.174 163.57 142.93C163.246 143.674 162.784 144.238 162.184 144.622C161.596 144.994 160.9 145.18 160.096 145.18C159.604 145.18 159.166 145.114 158.782 144.982C158.398 144.85 158.068 144.682 157.792 144.478C157.528 144.262 157.3 144.028 157.108 143.776H157C157.024 143.98 157.048 144.238 157.072 144.55C157.096 144.862 157.108 145.132 157.108 145.36V149.32H155.524V135.352H156.82L157.036 136.666H157.108C157.3 136.39 157.528 136.138 157.792 135.91C158.068 135.682 158.392 135.502 158.764 135.37C159.148 135.238 159.598 135.172 160.114 135.172ZM159.826 136.504C159.178 136.504 158.656 136.63 158.26 136.882C157.864 137.122 157.576 137.488 157.396 137.98C157.216 138.472 157.12 139.096 157.108 139.852V140.158C157.108 140.95 157.192 141.622 157.36 142.174C157.528 142.726 157.81 143.146 158.206 143.434C158.614 143.722 159.166 143.866 159.862 143.866C160.45 143.866 160.93 143.704 161.302 143.38C161.686 143.056 161.968 142.618 162.148 142.066C162.34 141.502 162.436 140.86 162.436 140.14C162.436 139.036 162.22 138.154 161.788 137.494C161.368 136.834 160.714 136.504 159.826 136.504ZM167.809 138.862C167.809 139.426 167.965 139.846 168.277 140.122C168.601 140.386 169.063 140.518 169.663 140.518C170.263 140.518 170.809 140.428 171.301 140.248C171.793 140.056 172.297 139.804 172.813 139.492V135.352H174.397V145H172.813V140.698C172.273 141.046 171.739 141.322 171.211 141.526C170.695 141.718 170.071 141.814 169.339 141.814C168.355 141.814 167.587 141.556 167.035 141.04C166.495 140.524 166.225 139.834 166.225 138.97V135.352H167.809V138.862ZM181.116 135.19C182.292 135.19 183.162 135.448 183.726 135.964C184.29 136.48 184.572 137.302 184.572 138.43V145H183.42L183.114 143.632H183.042C182.766 143.98 182.478 144.274 182.178 144.514C181.89 144.742 181.554 144.91 181.17 145.018C180.798 145.126 180.342 145.18 179.802 145.18C179.226 145.18 178.704 145.078 178.236 144.874C177.78 144.67 177.42 144.358 177.156 143.938C176.892 143.506 176.76 142.966 176.76 142.318C176.76 141.358 177.138 140.62 177.894 140.104C178.65 139.576 179.814 139.288 181.386 139.24L183.024 139.186V138.61C183.024 137.806 182.85 137.248 182.502 136.936C182.154 136.624 181.662 136.468 181.026 136.468C180.522 136.468 180.042 136.546 179.586 136.702C179.13 136.846 178.704 137.014 178.308 137.206L177.822 136.018C178.242 135.79 178.74 135.598 179.316 135.442C179.892 135.274 180.492 135.19 181.116 135.19ZM181.584 140.338C180.384 140.386 179.55 140.578 179.082 140.914C178.626 141.25 178.398 141.724 178.398 142.336C178.398 142.876 178.56 143.272 178.884 143.524C179.22 143.776 179.646 143.902 180.162 143.902C180.978 143.902 181.656 143.68 182.196 143.236C182.736 142.78 183.006 142.084 183.006 141.148V140.284L181.584 140.338ZM194.211 136.684H191.061V145H189.495V136.684H186.381V135.352H194.211V136.684ZM196.112 145V135.352H197.696V139.312H200.198C201.038 139.312 201.728 139.414 202.268 139.618C202.808 139.822 203.21 140.128 203.474 140.536C203.738 140.932 203.87 141.436 203.87 142.048C203.87 142.648 203.738 143.17 203.474 143.614C203.222 144.058 202.82 144.4 202.268 144.64C201.728 144.88 201.014 145 200.126 145H196.112ZM199.982 143.722C200.666 143.722 201.224 143.608 201.656 143.38C202.088 143.14 202.304 142.726 202.304 142.138C202.304 141.55 202.106 141.154 201.71 140.95C201.314 140.734 200.744 140.626 200 140.626H197.696V143.722H199.982ZM205.472 145V135.352H207.056V145H205.472ZM213.848 135.172C214.676 135.172 215.384 135.352 215.972 135.712C216.572 136.072 217.028 136.582 217.34 137.242C217.664 137.89 217.826 138.652 217.826 139.528V140.482H211.22C211.244 141.574 211.52 142.408 212.048 142.984C212.588 143.548 213.338 143.83 214.298 143.83C214.91 143.83 215.45 143.776 215.918 143.668C216.398 143.548 216.89 143.38 217.394 143.164V144.55C216.902 144.766 216.416 144.922 215.936 145.018C215.456 145.126 214.886 145.18 214.226 145.18C213.314 145.18 212.504 144.994 211.796 144.622C211.1 144.25 210.554 143.698 210.158 142.966C209.774 142.222 209.582 141.316 209.582 140.248C209.582 139.192 209.756 138.286 210.104 137.53C210.464 136.774 210.962 136.192 211.598 135.784C212.246 135.376 212.996 135.172 213.848 135.172ZM213.83 136.468C213.074 136.468 212.474 136.714 212.03 137.206C211.598 137.686 211.34 138.358 211.256 139.222H216.17C216.17 138.67 216.086 138.19 215.918 137.782C215.75 137.374 215.492 137.056 215.144 136.828C214.808 136.588 214.37 136.468 213.83 136.468Z"
+                              fill="black"/>
+                        <line x1="20" y1="116.5" x2="276" y2="116.5" stroke="#E5E5E5"/>
+                    </svg>
+                </button>
+
+                <button class="btn col-sm-12 col-xl-6 col-lg shadow-none"
+                        data-bs-target="#fourSashModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">
+                    <svg class="window-button" width="296" height="164" viewBox="0 0 296 164" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M152.703 14.6289L148.37 10.2811M195.387 14.7189L199.503 10.5885M195.513 105.371L199.63 109.502M152.613 105.281L148.28 109.629M200 10H148V110H200V10ZM195.667 14.3478H152.333V105.652H195.667V14.3478ZM194.8 15.2174H153.2V104.783H194.8V15.2174Z"
+                              stroke="black" stroke-width="0.434783"/>
+                        <path d="M48.7032 14.6289L44.3699 10.2811M91.3865 14.7189L95.5032 10.5885M91.5135 105.371L95.6301 109.502M48.6135 105.281L44.2801 109.629M96 10H44V110H96V10ZM91.6667 14.3478H48.3333V105.652H91.6667V14.3478ZM90.8 15.2174H49.2V104.783H90.8V15.2174Z"
+                              stroke="black" stroke-width="0.434783"/>
+                        <path d="M100.703 14.6289L96.3699 10.2811M143.387 14.7189L147.503 10.5885M143.513 105.371L147.63 109.502M100.613 105.281L96.2801 109.629M148 10H96V110H148V10ZM143.667 14.3478H100.333V105.652H143.667V14.3478ZM142.8 15.2174H101.2V104.783H142.8V15.2174Z"
+                              stroke="black" stroke-width="0.434783"/>
+                        <path d="M204.703 14.6289L200.37 10.2811M247.387 14.7189L251.503 10.5885M247.513 105.371L251.63 109.502M204.613 105.281L200.28 109.629M252 10H200V110H252V10ZM247.667 14.3478H204.333V105.652H247.667V14.3478ZM246.8 15.2174H205.2V104.783H246.8V15.2174Z"
+                              stroke="black" stroke-width="0.434783"/>
+                        <path d="M68.818 145H67.198V139.726C66.502 139.966 65.848 140.164 65.236 140.32C64.636 140.464 63.964 140.536 63.22 140.536C62.02 140.536 61.09 140.26 60.43 139.708C59.77 139.144 59.44 138.334 59.44 137.278V132.148H61.06V137.044C61.06 137.74 61.24 138.262 61.6 138.61C61.972 138.946 62.566 139.114 63.382 139.114C64.09 139.114 64.726 139.048 65.29 138.916C65.854 138.784 66.49 138.604 67.198 138.376V132.148H68.818V145ZM75.8244 135.172C76.6524 135.172 77.3604 135.352 77.9484 135.712C78.5484 136.072 79.0044 136.582 79.3164 137.242C79.6404 137.89 79.8024 138.652 79.8024 139.528V140.482H73.1964C73.2204 141.574 73.4964 142.408 74.0244 142.984C74.5644 143.548 75.3144 143.83 76.2744 143.83C76.8864 143.83 77.4264 143.776 77.8944 143.668C78.3744 143.548 78.8664 143.38 79.3704 143.164V144.55C78.8784 144.766 78.3924 144.922 77.9124 145.018C77.4324 145.126 76.8624 145.18 76.2024 145.18C75.2904 145.18 74.4804 144.994 73.7724 144.622C73.0764 144.25 72.5304 143.698 72.1344 142.966C71.7504 142.222 71.5584 141.316 71.5584 140.248C71.5584 139.192 71.7324 138.286 72.0804 137.53C72.4404 136.774 72.9384 136.192 73.5744 135.784C74.2224 135.376 74.9724 135.172 75.8244 135.172ZM75.8064 136.468C75.0504 136.468 74.4504 136.714 74.0064 137.206C73.5744 137.686 73.3164 138.358 73.2324 139.222H78.1464C78.1464 138.67 78.0624 138.19 77.8944 137.782C77.7264 137.374 77.4684 137.056 77.1204 136.828C76.7844 136.588 76.3464 136.468 75.8064 136.468ZM88.9185 136.684H85.7685V145H84.2025V136.684H81.0885V135.352H88.9185V136.684ZM90.8191 145V135.352H92.4031V139.312H94.9051C95.7451 139.312 96.4351 139.414 96.9751 139.618C97.5151 139.822 97.9171 140.128 98.1811 140.536C98.4451 140.932 98.5771 141.436 98.5771 142.048C98.5771 142.648 98.4451 143.17 98.1811 143.614C97.9291 144.058 97.5271 144.4 96.9751 144.64C96.4351 144.88 95.7211 145 94.8331 145H90.8191ZM94.6891 143.722C95.3731 143.722 95.9311 143.608 96.3631 143.38C96.7951 143.14 97.0111 142.726 97.0111 142.138C97.0111 141.55 96.8131 141.154 96.4171 140.95C96.0211 140.734 95.4511 140.626 94.7071 140.626H92.4031V143.722H94.6891ZM100.179 145V135.352H101.763V145H100.179ZM109.419 135.172C110.607 135.172 111.561 135.586 112.281 136.414C113.013 137.242 113.379 138.49 113.379 140.158C113.379 141.25 113.211 142.174 112.875 142.93C112.551 143.674 112.089 144.238 111.489 144.622C110.901 144.994 110.205 145.18 109.401 145.18C108.909 145.18 108.471 145.114 108.087 144.982C107.703 144.85 107.373 144.682 107.097 144.478C106.833 144.262 106.605 144.028 106.413 143.776H106.305C106.329 143.98 106.353 144.238 106.377 144.55C106.401 144.862 106.413 145.132 106.413 145.36V149.32H104.829V135.352H106.125L106.341 136.666H106.413C106.605 136.39 106.833 136.138 107.097 135.91C107.373 135.682 107.697 135.502 108.069 135.37C108.453 135.238 108.903 135.172 109.419 135.172ZM109.131 136.504C108.483 136.504 107.961 136.63 107.565 136.882C107.169 137.122 106.881 137.488 106.701 137.98C106.521 138.472 106.425 139.096 106.413 139.852V140.158C106.413 140.95 106.497 141.622 106.665 142.174C106.833 142.726 107.115 143.146 107.511 143.434C107.919 143.722 108.471 143.866 109.167 143.866C109.755 143.866 110.235 143.704 110.607 143.38C110.991 143.056 111.273 142.618 111.453 142.066C111.645 141.502 111.741 140.86 111.741 140.14C111.741 139.036 111.525 138.154 111.093 137.494C110.673 136.834 110.019 136.504 109.131 136.504ZM119.629 135.172C120.457 135.172 121.165 135.352 121.753 135.712C122.353 136.072 122.809 136.582 123.121 137.242C123.445 137.89 123.607 138.652 123.607 139.528V140.482H117.001C117.025 141.574 117.301 142.408 117.829 142.984C118.369 143.548 119.119 143.83 120.079 143.83C120.691 143.83 121.231 143.776 121.699 143.668C122.179 143.548 122.671 143.38 123.175 143.164V144.55C122.683 144.766 122.197 144.922 121.717 145.018C121.237 145.126 120.667 145.18 120.007 145.18C119.095 145.18 118.285 144.994 117.577 144.622C116.881 144.25 116.335 143.698 115.939 142.966C115.555 142.222 115.363 141.316 115.363 140.248C115.363 139.192 115.537 138.286 115.885 137.53C116.245 136.774 116.743 136.192 117.379 135.784C118.027 135.376 118.777 135.172 119.629 135.172ZM119.611 136.468C118.855 136.468 118.255 136.714 117.811 137.206C117.379 137.686 117.121 138.358 117.037 139.222H121.951C121.951 138.67 121.867 138.19 121.699 137.782C121.531 137.374 121.273 137.056 120.925 136.828C120.589 136.588 120.151 136.468 119.611 136.468ZM128.349 140.068L125.019 135.352H126.819L129.303 138.988L131.769 135.352H133.551L130.221 140.068L133.731 145H131.931L129.303 141.148L126.639 145H124.857L128.349 140.068ZM139.109 145.18C138.257 145.18 137.495 145.006 136.823 144.658C136.163 144.31 135.641 143.77 135.257 143.038C134.885 142.306 134.699 141.37 134.699 140.23C134.699 139.042 134.897 138.076 135.293 137.332C135.689 136.588 136.223 136.042 136.895 135.694C137.579 135.346 138.353 135.172 139.217 135.172C139.709 135.172 140.183 135.226 140.639 135.334C141.095 135.43 141.467 135.55 141.755 135.694L141.269 137.008C140.981 136.9 140.645 136.798 140.261 136.702C139.877 136.606 139.517 136.558 139.181 136.558C138.533 136.558 137.999 136.696 137.579 136.972C137.159 137.248 136.847 137.656 136.643 138.196C136.439 138.736 136.337 139.408 136.337 140.212C136.337 140.98 136.439 141.634 136.643 142.174C136.847 142.714 137.153 143.122 137.561 143.398C137.969 143.674 138.479 143.812 139.091 143.812C139.619 143.812 140.081 143.758 140.477 143.65C140.885 143.542 141.257 143.41 141.593 143.254V144.658C141.269 144.826 140.909 144.952 140.513 145.036C140.129 145.132 139.661 145.18 139.109 145.18ZM150.547 136.684H147.397V145H145.831V136.684H142.717V135.352H150.547V136.684ZM160.206 137.782C160.206 138.382 160.026 138.85 159.666 139.186C159.306 139.522 158.844 139.75 158.28 139.87V139.942C158.88 140.026 159.402 140.242 159.846 140.59C160.29 140.926 160.512 141.454 160.512 142.174C160.512 142.582 160.434 142.96 160.278 143.308C160.134 143.656 159.906 143.956 159.594 144.208C159.282 144.46 158.88 144.658 158.388 144.802C157.896 144.934 157.302 145 156.606 145H152.448V135.352H156.588C157.272 135.352 157.884 135.43 158.424 135.586C158.976 135.73 159.408 135.982 159.72 136.342C160.044 136.69 160.206 137.17 160.206 137.782ZM158.874 142.174C158.874 141.622 158.664 141.226 158.244 140.986C157.824 140.746 157.206 140.626 156.39 140.626H154.032V143.722H156.426C157.218 143.722 157.824 143.608 158.244 143.38C158.664 143.14 158.874 142.738 158.874 142.174ZM158.604 137.98C158.604 137.524 158.436 137.194 158.1 136.99C157.776 136.774 157.242 136.666 156.498 136.666H154.032V139.312H156.21C156.99 139.312 157.584 139.204 157.992 138.988C158.4 138.772 158.604 138.436 158.604 137.98ZM171.207 140.158C171.207 140.962 171.099 141.676 170.883 142.3C170.679 142.912 170.379 143.434 169.983 143.866C169.599 144.298 169.125 144.628 168.561 144.856C168.009 145.072 167.391 145.18 166.707 145.18C166.071 145.18 165.483 145.072 164.943 144.856C164.403 144.628 163.935 144.298 163.539 143.866C163.143 143.434 162.831 142.912 162.603 142.3C162.387 141.676 162.279 140.962 162.279 140.158C162.279 139.09 162.459 138.19 162.819 137.458C163.179 136.714 163.695 136.15 164.367 135.766C165.039 135.37 165.837 135.172 166.761 135.172C167.637 135.172 168.405 135.37 169.065 135.766C169.737 136.15 170.259 136.714 170.631 137.458C171.015 138.19 171.207 139.09 171.207 140.158ZM163.917 140.158C163.917 140.914 164.013 141.574 164.205 142.138C164.409 142.69 164.721 143.116 165.141 143.416C165.561 143.716 166.095 143.866 166.743 143.866C167.391 143.866 167.925 143.716 168.345 143.416C168.765 143.116 169.071 142.69 169.263 142.138C169.467 141.574 169.569 140.914 169.569 140.158C169.569 139.39 169.467 138.736 169.263 138.196C169.059 137.656 168.747 137.242 168.327 136.954C167.919 136.654 167.385 136.504 166.725 136.504C165.741 136.504 165.027 136.828 164.583 137.476C164.139 138.124 163.917 139.018 163.917 140.158ZM178.308 135.172C179.496 135.172 180.45 135.586 181.17 136.414C181.902 137.242 182.268 138.49 182.268 140.158C182.268 141.25 182.1 142.174 181.764 142.93C181.439 143.674 180.978 144.238 180.378 144.622C179.79 144.994 179.094 145.18 178.29 145.18C177.798 145.18 177.36 145.114 176.976 144.982C176.592 144.85 176.262 144.682 175.986 144.478C175.722 144.262 175.494 144.028 175.302 143.776H175.194C175.218 143.98 175.242 144.238 175.266 144.55C175.29 144.862 175.302 145.132 175.302 145.36V149.32H173.718V135.352H175.014L175.23 136.666H175.302C175.494 136.39 175.722 136.138 175.986 135.91C176.262 135.682 176.586 135.502 176.958 135.37C177.342 135.238 177.792 135.172 178.308 135.172ZM178.02 136.504C177.372 136.504 176.85 136.63 176.454 136.882C176.058 137.122 175.77 137.488 175.59 137.98C175.41 138.472 175.314 139.096 175.302 139.852V140.158C175.302 140.95 175.386 141.622 175.554 142.174C175.722 142.726 176.004 143.146 176.4 143.434C176.808 143.722 177.36 143.866 178.056 143.866C178.644 143.866 179.124 143.704 179.496 143.38C179.88 143.056 180.162 142.618 180.342 142.066C180.534 141.502 180.63 140.86 180.63 140.14C180.63 139.036 180.414 138.154 179.982 137.494C179.562 136.834 178.908 136.504 178.02 136.504ZM186.002 138.862C186.002 139.426 186.158 139.846 186.47 140.122C186.794 140.386 187.256 140.518 187.856 140.518C188.456 140.518 189.002 140.428 189.494 140.248C189.986 140.056 190.49 139.804 191.006 139.492V135.352H192.59V145H191.006V140.698C190.466 141.046 189.932 141.322 189.404 141.526C188.888 141.718 188.264 141.814 187.532 141.814C186.548 141.814 185.78 141.556 185.228 141.04C184.688 140.524 184.418 139.834 184.418 138.97V135.352H186.002V138.862ZM199.309 135.19C200.485 135.19 201.355 135.448 201.919 135.964C202.483 136.48 202.765 137.302 202.765 138.43V145H201.613L201.307 143.632H201.235C200.959 143.98 200.671 144.274 200.371 144.514C200.083 144.742 199.747 144.91 199.363 145.018C198.991 145.126 198.535 145.18 197.995 145.18C197.419 145.18 196.897 145.078 196.429 144.874C195.973 144.67 195.613 144.358 195.349 143.938C195.085 143.506 194.953 142.966 194.953 142.318C194.953 141.358 195.331 140.62 196.087 140.104C196.843 139.576 198.007 139.288 199.579 139.24L201.217 139.186V138.61C201.217 137.806 201.043 137.248 200.695 136.936C200.347 136.624 199.855 136.468 199.219 136.468C198.715 136.468 198.235 136.546 197.779 136.702C197.323 136.846 196.897 137.014 196.501 137.206L196.015 136.018C196.435 135.79 196.933 135.598 197.509 135.442C198.085 135.274 198.685 135.19 199.309 135.19ZM199.777 140.338C198.577 140.386 197.743 140.578 197.275 140.914C196.819 141.25 196.591 141.724 196.591 142.336C196.591 142.876 196.753 143.272 197.077 143.524C197.413 143.776 197.839 143.902 198.355 143.902C199.171 143.902 199.849 143.68 200.389 143.236C200.929 142.78 201.199 142.084 201.199 141.148V140.284L199.777 140.338ZM212.405 136.684H209.255V145H207.689V136.684H204.575V135.352H212.405V136.684ZM214.305 145V135.352H215.889V139.312H218.391C219.231 139.312 219.921 139.414 220.461 139.618C221.001 139.822 221.403 140.128 221.667 140.536C221.931 140.932 222.063 141.436 222.063 142.048C222.063 142.648 221.931 143.17 221.667 143.614C221.415 144.058 221.013 144.4 220.461 144.64C219.921 144.88 219.207 145 218.319 145H214.305ZM218.175 143.722C218.859 143.722 219.417 143.608 219.849 143.38C220.281 143.14 220.497 142.726 220.497 142.138C220.497 141.55 220.299 141.154 219.903 140.95C219.507 140.734 218.937 140.626 218.193 140.626H215.889V143.722H218.175ZM223.665 145V135.352H225.249V145H223.665ZM232.041 135.172C232.869 135.172 233.577 135.352 234.165 135.712C234.765 136.072 235.221 136.582 235.533 137.242C235.857 137.89 236.019 138.652 236.019 139.528V140.482H229.413C229.437 141.574 229.713 142.408 230.241 142.984C230.781 143.548 231.531 143.83 232.491 143.83C233.103 143.83 233.643 143.776 234.111 143.668C234.591 143.548 235.083 143.38 235.587 143.164V144.55C235.095 144.766 234.609 144.922 234.129 145.018C233.649 145.126 233.079 145.18 232.419 145.18C231.507 145.18 230.697 144.994 229.989 144.622C229.293 144.25 228.747 143.698 228.351 142.966C227.967 142.222 227.775 141.316 227.775 140.248C227.775 139.192 227.949 138.286 228.297 137.53C228.657 136.774 229.155 136.192 229.791 135.784C230.439 135.376 231.189 135.172 232.041 135.172ZM232.023 136.468C231.267 136.468 230.667 136.714 230.223 137.206C229.791 137.686 229.533 138.358 229.449 139.222H234.363C234.363 138.67 234.279 138.19 234.111 137.782C233.943 137.374 233.685 137.056 233.337 136.828C233.001 136.588 232.563 136.468 232.023 136.468Z"
+                              fill="black"/>
+                        <line x1="20" y1="116.5" x2="276" y2="116.5" stroke="#E5E5E5"/>
+                    </svg>
+                </button>
+
+                 <button class="btn col-sm-12 col-xl-6 col-lg shadow-none"
+                        data-bs-target="#doorModal"
+                        data-bs-toggle="modal" data-bs-dismiss="modal">
+                        <svg class="window-button" width="296" height="164" viewBox="0 0 296 164" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M130.535 132.148V143.56H132.173V148.384H130.625V145H121.787V148.384H120.239V143.56H121.229C121.661 142.816 122.069 141.982 122.453 141.058C122.849 140.134 123.197 139.168 123.497 138.16C123.797 137.14 124.043 136.12 124.235 135.1C124.427 134.08 124.547 133.096 124.595 132.148H130.535ZM126.017 133.606C125.969 134.302 125.849 135.088 125.657 135.964C125.477 136.84 125.243 137.74 124.955 138.664C124.679 139.576 124.367 140.458 124.019 141.31C123.683 142.162 123.323 142.912 122.939 143.56H128.933V133.606H126.017ZM141.864 137.782C141.864 138.382 141.684 138.85 141.324 139.186C140.964 139.522 140.502 139.75 139.938 139.87V139.942C140.538 140.026 141.06 140.242 141.504 140.59C141.948 140.926 142.17 141.454 142.17 142.174C142.17 142.582 142.092 142.96 141.936 143.308C141.792 143.656 141.564 143.956 141.252 144.208C140.94 144.46 140.538 144.658 140.046 144.802C139.554 144.934 138.96 145 138.264 145H134.106V135.352H138.246C138.93 135.352 139.542 135.43 140.082 135.586C140.634 135.73 141.066 135.982 141.378 136.342C141.702 136.69 141.864 137.17 141.864 137.782ZM140.532 142.174C140.532 141.622 140.322 141.226 139.902 140.986C139.482 140.746 138.864 140.626 138.048 140.626H135.69V143.722H138.084C138.876 143.722 139.482 143.608 139.902 143.38C140.322 143.14 140.532 142.738 140.532 142.174ZM140.262 137.98C140.262 137.524 140.094 137.194 139.758 136.99C139.434 136.774 138.9 136.666 138.156 136.666H135.69V139.312H137.868C138.648 139.312 139.242 139.204 139.65 138.988C140.058 138.772 140.262 138.436 140.262 137.98ZM148.203 135.172C149.031 135.172 149.739 135.352 150.327 135.712C150.927 136.072 151.383 136.582 151.695 137.242C152.019 137.89 152.181 138.652 152.181 139.528V140.482H145.575C145.599 141.574 145.875 142.408 146.403 142.984C146.943 143.548 147.693 143.83 148.653 143.83C149.265 143.83 149.805 143.776 150.273 143.668C150.753 143.548 151.245 143.38 151.749 143.164V144.55C151.257 144.766 150.771 144.922 150.291 145.018C149.811 145.126 149.241 145.18 148.581 145.18C147.669 145.18 146.859 144.994 146.151 144.622C145.455 144.25 144.909 143.698 144.513 142.966C144.129 142.222 143.937 141.316 143.937 140.248C143.937 139.192 144.111 138.286 144.459 137.53C144.819 136.774 145.317 136.192 145.953 135.784C146.601 135.376 147.351 135.172 148.203 135.172ZM148.185 136.468C147.429 136.468 146.829 136.714 146.385 137.206C145.953 137.686 145.695 138.358 145.611 139.222H150.525C150.525 138.67 150.441 138.19 150.273 137.782C150.105 137.374 149.847 137.056 149.499 136.828C149.163 136.588 148.725 136.468 148.185 136.468ZM159.227 135.172C160.415 135.172 161.369 135.586 162.089 136.414C162.821 137.242 163.187 138.49 163.187 140.158C163.187 141.25 163.019 142.174 162.683 142.93C162.359 143.674 161.897 144.238 161.297 144.622C160.709 144.994 160.013 145.18 159.209 145.18C158.717 145.18 158.279 145.114 157.895 144.982C157.511 144.85 157.181 144.682 156.905 144.478C156.641 144.262 156.413 144.028 156.221 143.776H156.113C156.137 143.98 156.161 144.238 156.185 144.55C156.209 144.862 156.221 145.132 156.221 145.36V149.32H154.637V135.352H155.933L156.149 136.666H156.221C156.413 136.39 156.641 136.138 156.905 135.91C157.181 135.682 157.505 135.502 157.877 135.37C158.261 135.238 158.711 135.172 159.227 135.172ZM158.939 136.504C158.291 136.504 157.769 136.63 157.373 136.882C156.977 137.122 156.689 137.488 156.509 137.98C156.329 138.472 156.233 139.096 156.221 139.852V140.158C156.221 140.95 156.305 141.622 156.473 142.174C156.641 142.726 156.923 143.146 157.319 143.434C157.727 143.722 158.279 143.866 158.975 143.866C159.563 143.866 160.043 143.704 160.415 143.38C160.799 143.056 161.081 142.618 161.261 142.066C161.453 141.502 161.549 140.86 161.549 140.14C161.549 139.036 161.333 138.154 160.901 137.494C160.481 136.834 159.827 136.504 158.939 136.504ZM170.158 139.312C170.998 139.312 171.694 139.414 172.246 139.618C172.798 139.822 173.212 140.128 173.488 140.536C173.776 140.932 173.92 141.436 173.92 142.048C173.92 142.648 173.782 143.17 173.506 143.614C173.242 144.058 172.828 144.4 172.264 144.64C171.7 144.88 170.974 145 170.086 145H165.712V135.352H167.296V139.312H170.158ZM172.336 142.138C172.336 141.55 172.126 141.154 171.706 140.95C171.298 140.734 170.722 140.626 169.978 140.626H167.296V143.722H170.014C170.686 143.722 171.238 143.602 171.67 143.362C172.114 143.122 172.336 142.714 172.336 142.138Z" fill="black"/>
+                        <line x1="20" y1="116.5" x2="276" y2="116.5" stroke="#E5E5E5"/>
+                        <rect x="131.286" y="10.2857" width="33.7143" height="99.4286" stroke="black" stroke-width="0.571429"/>
+                        <rect x="134" y="12.9998" width="28.2857" height="94" stroke="black" stroke-width="0.285714"/>
+                        <rect x="136.357" y="15.3571" width="23.5714" height="55" stroke="black" stroke-width="0.142857"/>
+                        <line x1="162.185" y1="13.0421" x2="165.042" y2="10.1849" stroke="black" stroke-width="0.285714"/>
+                        <line x1="134.042" y1="13.101" x2="131.328" y2="10.3867" stroke="black" stroke-width="0.285714"/>
+                        <rect x="136.928" y="15.9284" width="22.4286" height="53.8571" stroke="black" stroke-width="0.142857"/>
+                        <rect x="136.357" y="71.214" width="23.5714" height="4.14286" stroke="black" stroke-width="0.142857"/>
+                        <rect x="136.357" y="76.214" width="23.5714" height="28.4286" stroke="black" stroke-width="0.142857"/>
+                        <rect x="136.928" y="76.7858" width="22.4286" height="27.2857" stroke="black" stroke-width="0.142857"/>
+                        <line x1="159.929" y1="70.2861" x2="159.929" y2="76.2861" stroke="black" stroke-width="0.142857"/>
+                        <line x1="136.357" y1="70.2861" x2="136.357" y2="76.2861" stroke="black" stroke-width="0.142857"/>
+                        <path d="M165.072 109.786L162.215 106.928" stroke="black" stroke-width="0.285714"/>
+                        <path d="M134 107L131.378 109.537" stroke="black" stroke-width="0.285714"/>
+                        <path d="M162.357 101.643H162.857C162.975 101.643 163.071 101.739 163.071 101.857V106.428C163.071 106.547 162.975 106.643 162.857 106.643H162.357V101.643Z" stroke="black" stroke-width="0.142857"/>
+                        <line x1="162.286" y1="104.964" x2="163" y2="104.964" stroke="black" stroke-width="0.0714286"/>
+                        <line x1="162.286" y1="103.25" x2="163" y2="103.25" stroke="black" stroke-width="0.0714286"/>
+                        <path d="M162.357 13.3571H162.857C162.975 13.3571 163.071 13.453 163.071 13.5714V18.1428C163.071 18.2611 162.975 18.3571 162.857 18.3571H162.357V13.3571Z" stroke="black" stroke-width="0.142857"/>
+                        <line x1="162.286" y1="16.6786" x2="163" y2="16.6786" stroke="black" stroke-width="0.0714286"/>
+                        <line x1="162.286" y1="14.9643" x2="163" y2="14.9643" stroke="black" stroke-width="0.0714286"/>
+                        </svg>
+
+                 </button>
+            </div>
+
+            <div class="modal-body d-flex justify-content-end">
+                <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+<form method="POST" id="one-sash-form"  action="{% url 'calculation-form' %}">
+    {% csrf_token %}
+<div class="modal fade" id="oneSashModal" aria-hidden="true" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="d-flex flex-column align-items-start" style="padding: 0;">
+                <h5 class="modal-body" style="font-weight: 400;font-size: 20px;line-height: 24px;">
+                    Одностворчатое изделие
+                </h5>
+
+                <div class="modal-body d-flex" style="padding-top: 0">
+                    <button type="button" class="btn btn-outline-dark" data-bs-target="#selectWindowsCalcModal"
+                            data-bs-toggle="modal" data-bs-dismiss="modal" aria-label="Назад">
+                        <svg width="13" height="17" viewBox="0 0 13 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0.5 7L12.5 0.937822L12.5 13.0622L0.5 7Z" fill="#797979"/>
+                        </svg>
+
+                        <span style="align-self: center">Назад</span>
+                    </button>
+                </div>
+            </div>
+
+            <hr class="horizontal-line">
+
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col" style="padding:0px"></div>
+                        <div class="col align-self-center col-lg-3 col-6 mt-3" style="padding:0px">
+                            <div class="container col-12">
+                                <div class="row">
+                                    <div id="one-sash-1">
+                                        <div class="one-1-modelImg1" id="no-opening1">
+                                            <img src="{% static '/assets/img/sashes/no_opening.png' %}"
+                                                 alt="profile_image"
+                                                 class="w-100 shadow-sm modalImg">
+                                        </div>
+                                        <div class="one-1-modelImg" id="no-opening">
+                                            <img src="{% static '/assets/img/sashes/no_opening.png' %}"
+                                                 alt="profile_image"
+                                                 class="w-100 shadow-sm modalImg">
+                                        </div>
+                                        <div class="one-1-modelImg" id="turn-left">
+                                            <img src="{% static '/assets/img/sashes/turn_left.png' %}"
+                                                 alt="profile_image"
+                                                 class="w-100 shadow-sm modalImg">
+                                        </div>
+                                        <div class="one-1-modelImg" id="turn-right">
+                                        <img src="{% static '/assets/img/sashes/turn_right.png' %}"
+                                             alt="profile_image"
+                                             class="w-100 shadow-sm modalImg">
+                                    </div>
+                                        <div class="one-1-modelImg" id="transom">
+                                        <img src="{% static '/assets/img/sashes/transom.png' %}"
+                                             alt="profile_image"
+                                             class="w-100 shadow-sm modalImg">
+                                    </div>
+                                    </div>
+                                    <div class="mt-2 mb-2">
+                                      <select id='one-sash-select' class="one-1-model" style="width:100%" name="one-sash-select">
+                                        <option data="#no-opening" value='no-opening'>Глухое</option>
+                                       <option data="#turn-left" value='turning-left'>Левое поворотно-откидное открывание</option>
+                                        <option data="#turn-right" value='turning-right'>Правое поворотно-откидное открывание</option>
+                                        <option data="#transom" value='transom'>Фрамужное открывание</option>
+                                    </select>
+                                    </div>
+                                    <div class="row d-flex justify-content-center">
+                                        <label class="d-flex justify-content-center">Ширина</label>
+                                        <input class="form-control " type="number" min="300" max="2050" style="max-width:90px"
+                                               name="one-sash-width">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col" style="padding:0px">
+                        <div class="col-lg-4 col-12 align-self-center align-middle">
+                            <label>Высота</label>
+                            <input class="form-control" type="number" min="300" max="3050" name="one-sash-length">
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="modal-footer d-flex justify-content-end">
+                <button class="btn btn-dark" type="submit" id="" aria-label="Добавить изделия" style="margin-right: 1.3vw">
+                   <span style="align-self: center">Сохранить</span>
+                </button>
+
+
+                <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</form>
+<form method="POST" id="two-sash-form"  action="{% url 'calculation-form' %}">
+    {% csrf_token %}
+<div class="modal fade" id="twoSashModal" aria-hidden="true" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="d-flex flex-column align-items-start" style="padding: 0;">
+                <h5 class="modal-body" style="font-weight: 400;font-size: 20px;line-height: 24px;">
+                    Двухстворчатое изделие
+                </h5>
+
+                <div class="modal-body d-flex" style="padding-top: 0">
+                    <button type="button" class="btn btn-outline-dark" data-bs-target="#selectWindowsCalcModal"
+                            data-bs-toggle="modal" data-bs-dismiss="modal" aria-label="Назад">
+                        <svg width="13" height="17" viewBox="0 0 13 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0.5 7L12.5 0.937822L12.5 13.0622L0.5 7Z" fill="#797979"/>
+                        </svg>
+
+                        <span style="align-self: center">Назад</span>
+                    </button>
+                </div>
+            </div>
+
+            <hr class="horizontal-line">
+
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="col" style="padding:0px">
+
+                    </div>
+                    <div class="col align-self-center col-lg-4 col-9 mt-3">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6" style="padding:0px">
+                                    <div class="row">
+                                         <div id="two-sash-1">
+                                            <div class="two-1-modelImg1" id="two-1-no-opening1">
+                                                <img src="{% static '/assets/img/sashes/no_opening.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                            <div class="two-1-modelImg" id="two-1-no-opening">
+                                                <img src="{% static '/assets/img/sashes/no_opening.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                            <div class="two-1-modelImg" id="two-1-opening-left">
+                                                <img src="{% static '/assets/img/sashes/opening_left.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                            <div class="two-1-modelImg" id="two-1-opening-right">
+                                                <img src="{% static '/assets/img/sashes/opening_right.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                            <div class="two-1-modelImg" id="two-1-turn-left">
+                                                <img src="{% static '/assets/img/sashes/turn_left.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                            <div class="two-1-modelImg" id="two-1-turn-right">
+                                                <img src="{% static '/assets/img/sashes/turn_right.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                        </div>
+                                        <div class="mt-2 mb-2">
+                                            <select id='two-sash-select-1' class="two-1-model" style="width:100%"
+                                                    name="two-sash-select-1">
+                                                <option data="#two-1-no-opening" value='no-opening'>Глухое</option>
+                                                <option data="#two-1-turn-left" value='turning-left'>Левое поворотно-откидное открывание</option>
+                                                <option data="#two-1-turn-right" value='turning-right'>Правое поворотно-откидное открывание</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6" style="padding:0px">
+                                    <div class="row">
+                                        <div id="two-sash-2">
+                                            <div class="two-2-modelImg1" id="two-2-no-opening1">
+                                                <img src="{% static '/assets/img/sashes/no_opening.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                            <div class="two-2-modelImg" id="two-2-no-opening">
+                                                <img src="{% static '/assets/img/sashes/no_opening.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                            <div class="two-2-modelImg" id="two-2-opening-left">
+                                                <img src="{% static '/assets/img/sashes/opening_left.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                            <div class="two-2-modelImg" id="two-2-opening-right">
+                                                <img src="{% static '/assets/img/sashes/opening_right.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                            <div class="two-2-modelImg" id="two-2-turn-left">
+                                                <img src="{% static '/assets/img/sashes/turn_left.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                            <div class="two-2-modelImg" id="two-2-turn-right">
+                                            <img src="{% static '/assets/img/sashes/turn_right.png' %}"
+                                                 alt="profile_image"
+                                                 class="w-100 shadow-sm modalImg">
+                                        </div>
+                                        </div>
+                                        <div class="mt-2 mb-2">
+                                            <select id='two-sash-select-2' class="two-2-model" style="width:100%"
+                                                    name="two-sash-select-2">
+                                                <option data="#two-2-no-opening" value='no-opening'>Глухое</option>
+
+                                                <option data="#two-2-turn-left" value='turning-left'>Левое поворотно-откидное открывание</option>
+                                                <option data="#two-2-turn-right" value='turning-right'>Правое поворотно-откидное открывание</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="offset-3 col-6 align-self-center align-middle">
+                            <label>Ширина</label>
+                            <input class="form-control align-middle" type="number" style="width:100%"
+                                   name="two-sash-width" min="1000" max="4400">
+                        </div>
+                    </div>
+                    <div class="col" style="padding:0px">
+                        <div class=" col-lg-4 col-12 align-self-center align-middle">
+                            <label>Высота</label>
+                            <input class="form-control" type="number" min="600" max="2250" name="two-sash-length">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-body d-flex justify-content-end">
+                <button class="btn btn-dark" type="submit" aria-label="Добавить изделия" style="margin-right: 1.3vw">
+                   <span style="align-self: center">Сохранить</span>
+                </button>
+
+
+                <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+<form method="POST" id="three-sash-form"  action="{% url 'calculation-form' %}">
+    {% csrf_token %}
+
+<div class="modal fade" id="threeSashModal" aria-hidden="true" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="d-flex flex-column align-items-start" style="padding: 0;">
+                <h5 class="modal-body" style="font-weight: 400;font-size: 20px;line-height: 24px;">
+                    Трехстворчатое изделие
+                </h5>
+
+                <div class="modal-body d-flex" style="padding-top: 0">
+                    <button type="button" class="btn btn-outline-dark" data-bs-target="#selectWindowsCalcModal"
+                            data-bs-toggle="modal" data-bs-dismiss="modal" aria-label="Назад">
+                        <svg width="13" height="17" viewBox="0 0 13 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0.5 7L12.5 0.937822L12.5 13.0622L0.5 7Z" fill="#797979"/>
+                        </svg>
+
+                        <span style="align-self: center">Назад</span>
+                    </button>
+                </div>
+            </div>
+
+            <hr class="horizontal-line">
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col" style="padding:0px">
+
+                    </div>
+                    <div class="col align-self-center col-lg-4 col-9 mt-3" style="padding:0px">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-4" style="padding:0px">
+                                    <div class="row">
+                                     <div id="three-sash-1">
+                                        <div class="three-1-modelImg1" id="three-1-no-opening1">
+                                            <img src="{% static '/assets/img/sashes/no_opening.png' %}"
+                                                 alt="profile_image"
+                                                 class="w-100 shadow-sm modalImg">
+                                        </div>
+                                        <div class="three-1-modelImg" id="three-1-no-opening">
+                                            <img src="{% static '/assets/img/sashes/no_opening.png' %}"
+                                                 alt="profile_image"
+                                                 class="w-100 shadow-sm modalImg">
+                                        </div>
+                                        <div class="three-1-modelImg" id="three-1-opening-left">
+                                            <img src="{% static '/assets/img/sashes/opening_left.png' %}"
+                                                 alt="profile_image"
+                                                 class="w-100 shadow-sm modalImg">
+                                        </div>
+                                        <div class="three-1-modelImg" id="three-1-opening-right">
+                                            <img src="{% static '/assets/img/sashes/opening_right.png' %}"
+                                                 alt="profile_image"
+                                                 class="w-100 shadow-sm modalImg">
+                                        </div>
+                                        <div class="three-1-modelImg" id="three-1-turn-left">
+                                            <img src="{% static '/assets/img/sashes/turn_left.png' %}"
+                                                 alt="profile_image"
+                                                 class="w-100 shadow-sm modalImg">
+                                        </div>
+                                        <div class="three-1-modelImg" id="three-1-turn-right">
+                                            <img src="{% static '/assets/img/sashes/turn_right.png' %}"
+                                                 alt="profile_image"
+                                                 class="w-100 shadow-sm modalImg">
+                                        </div>
+                                     </div>
+                                        <div class="mt-2 mb-2">
+
+                                            <select id='three-sash-select-1' name="three-sash-select-1"
+                                                    class="three-1-model" style="width:100%">
+                                                <option data="#three-1-no-opening" value='no-opening'>Глухое</option>
+
+                                                <option data="#three-1-turn-left" value='turning-left'>Левое поворотно-откидное открывание</option>
+                                                <option data="#three-1-turn-right" value='turning-right'>Правое поворотно-откидное открывание</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4" style="padding:0px">
+                                    <div class="row">
+                                     <div id="three-sash-2">
+                                        <div class="three-2-modelImg1" id="three-2-no-opening1">
+                                            <img src="{% static '/assets/img/sashes/no_opening.png' %}"
+                                                 alt="profile_image"
+                                                 class="w-100 shadow-sm modalImg">
+                                        </div>
+                                        <div class="three-2-modelImg" id="three-2-no-opening">
+                                            <img src="{% static '/assets/img/sashes/no_opening.png' %}"
+                                                 alt="profile_image"
+                                                 class="w-100 shadow-sm modalImg">
+                                        </div>
+                                        <div class="three-2-modelImg" id="three-2-opening-left">
+                                            <img src="{% static '/assets/img/sashes/opening_left.png' %}"
+                                                 alt="profile_image"
+                                                 class="w-100 shadow-sm modalImg">
+                                        </div>
+                                        <div class="three-2-modelImg" id="three-2-opening-right">
+                                            <img src="{% static '/assets/img/sashes/opening_right.png' %}"
+                                                 alt="profile_image"
+                                                 class="w-100 shadow-sm modalImg">
+                                        </div>
+                                        <div class="three-2-modelImg" id="three-2-turn-left">
+                                            <img src="{% static '/assets/img/sashes/turn_left.png' %}"
+                                                 alt="profile_image"
+                                                 class="w-100 shadow-sm modalImg">
+                                        </div>
+                                        <div class="three-2-modelImg" id="three-2-turn-right">
+                                            <img src="{% static '/assets/img/sashes/turn_right.png' %}"
+                                                 alt="profile_image"
+                                                 class="w-100 shadow-sm modalImg">
+                                        </div>
+                                     </div>
+                                        <div class="mt-2 mb-2">
+                                            <select id='three-sash-select-2' name='three-sash-select-2'
+                                                    class="three-2-model" style="width:100%">
+                                                <option data="#three-2-no-opening" value='no-opening'>Глухое</option>
+                                                <option data="#three-2-turn-left" value='turning-left'>Левое поворотно-откидное открывание</option>
+                                                <option data="#three-2-turn-right" value='turning-right'>Правое поворотно-откидное открывание</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4" style="padding:0px">
+                                    <div class="row">
+                                         <div id="three-sash-3">
+                                            <div class="three-3-modelImg1" id="three-3-no-opening1">
+                                                <img src="{% static '/assets/img/sashes/no_opening.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                            <div class="three-3-modelImg" id="three-3-no-opening">
+                                                <img src="{% static '/assets/img/sashes/no_opening.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                            <div class="three-3-modelImg" id="three-3-opening-left">
+                                                <img src="{% static '/assets/img/sashes/opening_left.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                            <div class="three-3-modelImg" id="three-3-opening-right">
+                                                <img src="{% static '/assets/img/sashes/opening_right.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                            <div class="three-3-modelImg" id="three-3-turn-left">
+                                                <img src="{% static '/assets/img/sashes/turn_left.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                            <div class="three-3-modelImg" id="three-3-turn-right">
+                                                <img src="{% static '/assets/img/sashes/turn_right.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                         </div>
+                                        <div class="mt-2 mb-2">
+                                            <select id='three-sash-select-3' name='three-sash-select-3'
+                                                    class="three-3-model" style="width:100%">
+                                                <option data="#three-3-no-opening" value='no-opening'>Глухое</option>
+                                                <option data="#three-3-turn-left" value='turning-left'>Левое поворотно-откидное открывание</option>
+                                                <option data="#three-3-turn-right" value='turning-right'>Правое поворотно-откидное открывание</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="offset-3 col-6 align-self-center align-middle">
+                            <label>Ширина</label>
+                            <input class="form-control align-middle" type="number" style="width:100%"
+                                   name="three-sash-width" min="1100" max="3450">
+                        </div>
+                    </div>
+                    <div class="col" style="padding:0px">
+                        <div class=" col-lg-4 col-12 align-self-center align-middle">
+                            <div>
+                                <label>Высота</label>
+                                <input class="form-control" type="number" name="three-sash-length" min="600" max="2300">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="modal-body d-flex justify-content-end">
+                <button class="btn btn-dark" type="submit" aria-label="Добавить изделия" style="margin-right: 1.3vw">
+                    <span style="align-self: center">Сохранить</span>
+                </button>
+
+
+                <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+<form method="POST" id="four-sash-form"  action="{% url 'calculation-form' %}">
+{% csrf_token %}
+
+<div class="modal fade" id="fourSashModal" aria-hidden="true" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="d-flex flex-column align-items-start" style="padding: 0;">
+                <h5 class="modal-body" style="font-weight: 400;font-size: 20px;line-height: 24px;">
+                    Четырехстворчатое изделие
+                </h5>
+
+                <div class="modal-body d-flex" style="padding-top: 0">
+                    <button type="button" class="btn btn-outline-dark" data-bs-target="#selectWindowsCalcModal"
+                            data-bs-toggle="modal" data-bs-dismiss="modal" aria-label="Назад">
+                        <svg width="13" height="17" viewBox="0 0 13 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0.5 7L12.5 0.937822L12.5 13.0622L0.5 7Z" fill="#797979"/>
+                        </svg>
+
+                        <span style="align-self: center">Назад</span>
+                    </button>
+                </div>
+            </div>
+
+            <hr class="horizontal-line">
+
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="col-lg-4 align-self-start">
+
+                    </div>
+                    <div class="col align-self-center col-lg-5 col-9 mt-3" style="padding:0px">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-3" style="padding:0px">
+                                    <div class="row">
+                                         <div id="four-sash-1">
+                                            <div class="four-1-modelImg1" id="four-1-no-opening1">
+                                                <img src="{% static '/assets/img/sashes/no_opening.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                            <div class="four-1-modelImg" id="four-1-no-opening">
+                                                <img src="{% static '/assets/img/sashes/no_opening.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                            <div class="four-1-modelImg" id="four-1-opening-left">
+                                                <img src="{% static '/assets/img/sashes/opening_left.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                            <div class="four-1-modelImg" id="four-1-opening-right">
+                                                <img src="{% static '/assets/img/sashes/opening_right.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                            <div class="four-1-modelImg" id="four-1-turn-left">
+                                                <img src="{% static '/assets/img/sashes/turn_left.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                            <div class="four-1-modelImg" id="four-1-turn-right">
+                                                <img src="{% static '/assets/img/sashes/turn_right.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                         </div>
+                                        <div class="mt-2 mb-2">
+
+                                            <select id='four-sash-select-1' name='four-sash-select-1'
+                                                    class="four-1-model" style="width:100%">
+                                                <option data="#four-1-no-opening" value='no-opening'>Глухое</option>
+                                                <option data="#four-1-turn-left" value='turning-left'>Левое поворотно-откидное открывание</option>
+                                                <option data="#four-1-turn-right" value='turning-right'>Правое поворотно-откидное открывание</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3" style="padding:0px">
+                                    <div class="row">
+                                        <div id="four-sash-2">
+                                            <div class="four-2-modelImg1" id="four-2-no-opening1">
+                                                <img src="{% static '/assets/img/sashes/no_opening.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                            <div class="four-2-modelImg" id="four-2-no-opening">
+                                                <img src="{% static '/assets/img/sashes/no_opening.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                            <div class="four-2-modelImg" id="four-2-opening-left">
+                                                <img src="{% static '/assets/img/sashes/opening_left.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                            <div class="four-2-modelImg" id="four-2-opening-right">
+                                                <img src="{% static '/assets/img/sashes/opening_right.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                            <div class="four-2-modelImg" id="four-2-turn-left">
+                                                <img src="{% static '/assets/img/sashes/turn_left.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                            <div class="four-2-modelImg" id="four-2-turn-right">
+                                            <img src="{% static '/assets/img/sashes/turn_right.png' %}"
+                                                 alt="profile_image"
+                                                 class="w-100 shadow-sm modalImg">
+                                        </div>
+                                        </div>
+                                        <div class="mt-2 mb-2">
+                                            <select id='four-sash-select-2' name='four-sash-select-2'
+                                                    class="four-2-model" style="width:100%">
+                                                <option data="#four-2-no-opening" value='no-opening'>Глухое</option>
+                                                <option data="#four-2-turn-left" value='turning-left'>Левое поворотно-откидное открывание</option>
+                                                <option data="#four-2-turn-right" value='turning-right'>Правое поворотно-откидное открывание</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3" style="padding:0px">
+                                    <div class="row">
+                                        <div id="four-sash-3">
+                                            <div class="four-3-modelImg1" id="four-3-no-opening1">
+                                                <img src="{% static '/assets/img/sashes/no_opening.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                            <div class="four-3-modelImg" id="four-3-no-opening">
+                                                <img src="{% static '/assets/img/sashes/no_opening.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                            <div class="four-3-modelImg" id="four-3-opening-left">
+                                                <img src="{% static '/assets/img/sashes/opening_left.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                            <div class="four-3-modelImg" id="four-3-opening-right">
+                                                <img src="{% static '/assets/img/sashes/opening_right.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                            <div class="four-3-modelImg" id="four-3-turn-left">
+                                                <img src="{% static '/assets/img/sashes/turn_left.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                            <div class="four-3-modelImg" id="four-3-turn-right">
+                                            <img src="{% static '/assets/img/sashes/turn_right.png' %}"
+                                                 alt="profile_image"
+                                                 class="w-100 shadow-sm modalImg">
+                                        </div>
+                                        </div>
+                                        <div class="mt-2 mb-2">
+                                            <select id='four-sash-select-3' name='four-sash-select-3'
+                                                    class="four-3-model" style="width:100%">
+                                                <option data="#four-3-no-opening" value='no-opening'>Глухое</option>
+                                                <option data="#four-3-turn-left" value='turning-left'>Левое поворотно-откидное открывание</option>
+                                                <option data="#four-3-turn-right" value='turning-right'>Правое поворотно-откидное открывание</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3" style="padding:0px">
+                                    <div class="row">
+                                        <div id="four-sash-4">
+                                            <div class="four-4-modelImg1" id="four-4-no-opening1">
+                                                <img src="{% static '/assets/img/sashes/no_opening.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                            <div class="four-4-modelImg" id="four-4-no-opening">
+                                                <img src="{% static '/assets/img/sashes/no_opening.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                            <div class="four-4-modelImg" id="four-4-opening-left">
+                                                <img src="{% static '/assets/img/sashes/opening_left.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                            <div class="four-4-modelImg" id="four-4-opening-right">
+                                                <img src="{% static '/assets/img/sashes/opening_right.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                            <div class="four-4-modelImg" id="four-4-turn-left">
+                                                <img src="{% static '/assets/img/sashes/turn_left.png' %}"
+                                                     alt="profile_image"
+                                                     class="w-100 shadow-sm modalImg">
+                                            </div>
+                                            <div class="four-4-modelImg" id="four-4-turn-right">
+                                            <img src="{% static '/assets/img/sashes/turn_right.png' %}"
+                                                 alt="profile_image"
+                                                 class="w-100 shadow-sm modalImg">
+                                        </div>
+                                        </div>
+                                        <div class="mt-2 mb-2">
+                                            <select id='four-sash-select-4' name='four-sash-select-4'
+                                                    class="four-4-model" style="width:100%">
+                                                <option data="#four-4-no-opening" value='no-opening'>Глухое</option>
+                                                <option data="#four-4-turn-left" value='turning-left'>Левое поворотно-откидное открывание</option>
+                                                <option data="#four-4-turn-right" value='turning-right'>Правое поворотно-откидное открывание</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                         <div class="row d-flex justify-content-center">
+                                        <label class="d-flex justify-content-center">Ширина</label>
+                                        <input class="form-control " type="number" style="max-width:90px" min="2100" max="3300"
+                                               name="four-sash-width">
+                                    </div>
+                    </div>
+                    <div class="col" style="padding:0px">
+                        <div class=" col-lg-4 col-12 align-self-center align-middle">
+                            <div>
+                                <label>Высота</label>
+                                <input class="form-control" type="number" name="four-sash-length" min="1100" max="2400">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-body d-flex justify-content-end">
+                <button class="btn btn-dark" type="submit" aria-label="Добавить изделия" style="margin-right: 1.3vw">
+                   <span style="align-self: center">Сохранить</span>
+                </button>
+
+
+                <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+<form method="POST" id="door-form"  action="{% url 'calculation-form' %}">
+{% csrf_token %}
+<div class="modal fade" id="doorModal" aria-hidden="true" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+            <div class="d-flex flex-column align-items-start" style="padding: 0;">
+                <h5 class="modal-body" style="font-weight: 400;font-size: 20px;line-height: 24px;">
+                    Дверное изделие
+                </h5>
+
+                <div class="modal-body d-flex" style="padding-top: 0">
+                    <button type="button" class="btn btn-outline-dark" data-bs-target="#selectWindowsCalcModal"
+                            data-bs-toggle="modal" data-bs-dismiss="modal" aria-label="Назад">
+                        <svg width="13" height="17" viewBox="0 0 13 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0.5 7L12.5 0.937822L12.5 13.0622L0.5 7Z" fill="#797979"/>
+                        </svg>
+
+                        <span style="align-self: center">Назад</span>
+                    </button>
+                </div>
+            </div>
+
+            <hr class="horizontal-line">
+
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col align-self-start" style="padding:0px">
+
+                        </div>
+                        <div class="col align-self-center col-lg-2 col-6" style="padding:0px">
+                            <div class="container col-12">
+                                <div class="row">
+                                     <div id="door-sash">
+                                        <div class="door-modelImg1" id="door-turn-left1">
+                                            <img src="{% static '/assets/img/doors/door_left.png' %}"
+                                                 alt="profile_image"
+                                                 class="w-100 shadow-sm modalImg">
+                                        </div>
+                                           <div class="door-modelImg" id="door-turn-left">
+                                            <img src="{% static '/assets/img/doors/door_left.png' %}"
+                                                 alt="profile_image"
+                                                 class="w-100 shadow-sm modalImg">
+                                        </div>
+                                        <div class="door-modelImg" id="door-turn-right">
+                                            <img src="{% static '/assets/img/doors/door_right.png' %}"
+                                                 alt="profile_image"
+                                                 class="w-100 shadow-sm modalImg">
+                                        </div>
+                                        <div class="door-modelImg" id="door-turn-left-glass">
+                                            <img src="{% static '/assets/img/doors/door_glass_left.png' %}"
+                                                 alt="profile_image"
+                                                 class="w-100 shadow-sm modalImg">
+                                        </div>
+                                        <div class="door-modelImg" id="door-turn-right-glass">
+                                            <img src="{% static '/assets/img/doors/door_glass_right.png' %}"
+                                                 alt="profile_image"
+                                                 class="w-100 shadow-sm modalImg">
+                                        </div>
+                                        <div class="door-modelImg" id="door-turn-left-sandwich">
+                                            <img src="{% static '/assets/img/doors/door_sandwich_left.png' %}"
+                                                 alt="profile_image"
+                                                 class="w-100 shadow-sm modalImg">
+                                        </div>
+                                        <div class="door-modelImg" id="door-turn-right-sandwich">
+                                        <img src="{% static '/assets/img/doors/door_sandwich_right.png' %}"
+                                             alt="profile_image"
+                                             class="w-100 shadow-sm modalImg">
+                                    </div>
+                                     </div>
+
+                                    <div class="mt-2 mb-2">
+                                      <select id='door-select' class="door-model" style="width:100%" name="door-select">
+                                        <option data="#door-turn-left" value='door-turning-left'>Левое открывание</option>
+                                        <option data="#door-turn-right" value='door-turning-right'>Правое открывание</option>
+                                        <option data="#door-turn-left-glass" value='door-turning-left-glass'>Левое открывание стекло</option>
+                                        <option data="#door-turn-right-glass" value='door-turning-right-glass'>Правое открывание стекло</option>
+                                        <option data="#door-turn-left-sandwich" value='door-turning-right-sandwich'>Левое открывание сендвич</option>
+                                        <option data="#door-turn-right-sandwich" value='door-turning-right-sandwich'>Правое открывание сендвич</option>
+                                   </select>
+                                    </div>
+
+                                    <div class="col align-self-center">
+                                        <label>Ширина</label>
+                                        <input class="form-control align-middle" type="number" style="width:100%"
+                                               name="door-width" min="500" max="1200">
+                                    </div>
+
+
+                                </div>
+                                <div class="col">
+                                </div>
+                            </div>
+                            <div class="col">
+                            </div>
+                        </div>
+                           <div class="col" style="padding:0px">
+                            <div class="row">
+                                <div class="input-length">
+                                    <label>Высота</label>
+                                    <input class="form-control align-middle " type="number" min="1000" max="2250" name="door-length">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-body d-flex justify-content-end">
+                <button class="btn btn-dark" type="submit" aria-label="Добавить изделия" style="margin-right: 1.3vw">
+                    <span style="align-self: center">Сохранить</span>
+                </button>
+
+                <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+<style>
+    .one-1-modelImg, .two-1-modelImg, .two-2-modelImg,
+    .three-1-modelImg, .three-2-modelImg, .three-3-modelImg,
+    .four-1-modelImg, .four-2-modelImg, .four-3-modelImg, .four-4-modelImg, .door-modelImg {
+        display: none;
+    }
+
+    .input-length {
+    width:auto;
+    padding:0px;
+    max-width:90px;
+    position: absolute;
+    top: 25%;
+    }
+
+    .vertical-lr {
+        writing-mode: vertical-lr;
+    }
+
+    .horizontal-line {
+        border: 1px solid gray;
+        margin: 0 3.9vw -10px;
+    }
+
+    .window-card {
+        background: #FAFAFA;
+        border-radius: 10px;
+        margin-top: 20px;
+        border: none;
+    }
+
+    .delete {
+    width: 136px;
+    background: white;
+    border-radius: 6px;
+    border-color: red;
+    color: red;
+    }
+
+    .delete:hover {
+        color: white;
+    }
+
+    .window-button {
+        background: #FFFFFF;
+        border: 2px solid #E5E5E5;
+        box-shadow: 4px 4px 4px white;
+        border-radius: 10px;
+    }
+
+    .window-button:hover {
+        border: 2px solid #000000;
+        box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.4);
+        border-radius: 10px;
+    }
+
+    @media (min-width: 768px) {
+        .modal-dialog {
+            width: 90%;
+            max-width: 1200px;
+        }
+    }
+
+    .property-name {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 19px;
+        color: #9A9A9A;
+    }
+
+    .property-value {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 22px;
+        color: #212529;
+    }
+</style>
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+
+function showWindowModelImg(modelClass, imgClass, img1Class) {
+  $(modelClass).change(function() {
+    var img_id = $(modelClass).children("option:selected").attr("data");
+    $(imgClass).add(img1Class).fadeOut(1);
+    $(img_id).fadeIn(10);
+  });
+}
+
+$(function() {
+  showWindowModelImg(".one-1-model", ".one-1-modelImg", ".one-1-modelImg1");
+  showWindowModelImg(".two-1-model", ".two-1-modelImg", ".two-1-modelImg1");
+  showWindowModelImg(".two-2-model", ".two-2-modelImg", ".two-2-modelImg1");
+  showWindowModelImg(".three-1-model", ".three-1-modelImg", ".three-1-modelImg1");
+  showWindowModelImg(".three-2-model", ".three-2-modelImg", ".three-2-modelImg1");
+  showWindowModelImg(".three-3-model", ".three-3-modelImg", ".three-3-modelImg1");
+  showWindowModelImg(".four-1-model", ".four-1-modelImg", ".four-1-modelImg1");
+  showWindowModelImg(".four-2-model", ".four-2-modelImg", ".four-2-modelImg1");
+  showWindowModelImg(".four-3-model", ".four-3-modelImg", ".four-3-modelImg1");
+  showWindowModelImg(".four-4-model", ".four-4-modelImg", ".four-4-modelImg1");
+  showWindowModelImg(".door-model", ".door-modelImg", ".door-modelImg1");
+});
+</script>
+
+
+
+
+
+
+<script>
+$(document).ready(function() {
+  function sendForm(formData) {
+    // Получаем данные формы
+    formData += '&profile=' + $('#profile-select').val();
+    formData += '&fitting=' + $('#fitting-select').val();
+    formData += '&filling=' + $('#filling-select').val();
+
+    // Отправляем запрос на сервер
+    $.ajax({
+      type: 'POST',
+      url: '/calculation-form/',
+      data: formData,
+      success: function(response) {
+        // Redirect to a new page
+        window.location.href = '/miscalculation/{{ miscalc_pk }}/{{ order_pk }}/products/';
+      },
+      error: function(response) {
+        // Обрабатываем ошибку от сервера
+        alert('Просчет не произведен. Сохранен');
+      }
+    });
+  }
+
+  $('#one-sash-form').submit(function(event) {
+    // Отменяем стандартное поведение формы (отправку запроса и перезагрузку страницы)
+    event.preventDefault();
+
+    // Получаем данные формы
+    var formData = $(this).serialize();
+    formData += '&one-sash-select=' + $('#one-sash-select').val();
+    formData += '&order_pk=' + '{{ order_pk }}';
+    formData += '&miscalc_pk=' + '{{ miscalc_pk }}';
+    console.log(formData);
+
+    sendForm(formData);
+  });
+
+  $('#two-sash-form').submit(function(event) {
+    // Отменяем стандартное поведение формы (отправку запроса и перезагрузку страницы)
+    event.preventDefault();
+
+    // Получаем данные формы
+    var formData = $(this).serialize();
+    formData += '&two-sash-select-1=' + $('#two-sash-select-1').val();
+    formData += '&two-sash-select-2=' + $('#two-sash-select-2').val();
+    formData += '&order_pk=' + '{{ order_pk }}';
+    formData += '&miscalc_pk=' + '{{ miscalc_pk }}';
+    console.log(formData);
+
+    sendForm(formData);
+  });
+
+  $('#three-sash-form').submit(function(event) {
+    // Отменяем стандартное поведение формы (отправку запроса и перезагрузку страницы)
+    event.preventDefault();
+
+    // Получаем данные формы
+    var formData = $(this).serialize();
+    formData += '&three-sash-select-1=' + $('#three-sash-select-1').val();
+    formData += '&three-sash-select-2=' + $('#three-sash-select-2').val();
+    formData += '&three-sash-select-3=' + $('#three-sash-select-3').val();
+    formData += '&order_pk=' + '{{ order_pk }}';
+    formData += '&miscalc_pk=' + '{{ miscalc_pk }}';
+    console.log(formData);
+
+    sendForm(formData);
+  });
+
+  $('#four-sash-form').submit(function(event) {
+    // Отменяем стандартное поведение формы (отправку запроса и перезагрузку страницы)
+    event.preventDefault();
+
+    // Получаем данные формы
+    var formData = $(this).serialize();
+    formData += '&four-sash-select-1=' + $('#four-sash-select-1').val();
+    formData += '&four-sash-select-2=' + $('#four-sash-select-2').val();
+    formData += '&four-sash-select-3=' + $('#four-sash-select-3').val();
+    formData += '&four-sash-select-4=' + $('#four-sash-select-4').val();
+    formData += '&order_pk=' + '{{ order_pk }}';
+    formData += '&miscalc_pk=' + '{{ miscalc_pk }}';
+    console.log(formData);
+
+    sendForm(formData);
+  });
+
+  $('#door-form').submit(function(event) {
+    // Отменяем стандартное поведение формы (отправку запроса и перезагрузку страницы)
+    event.preventDefault();
+
+    // Получаем данные формы
+    var formData = $(this).serialize();
+    formData += '&door-select=' + $('#door-select').val();
+    formData += '&order_pk=' + '{{ order_pk }}';
+    formData += '&miscalc_pk=' + '{{ miscalc_pk }}';
+    console.log(formData);
+
+    sendForm(formData);
+  });
+});
+
+</script>
+
+
+<script>
+$(document).ready(function() {
+  $('#door-form').submit(function(event) {
+    // Отменяем стандартное поведение формы (отправку запроса и перезагрузку страницы)
+    event.preventDefault();
+
+    // Получаем данные формы
+    var formData = $(this).serialize();
+    formData += '&profile=' + $('#profile-select').val();
+    formData += '&fitting=' + $('#fitting-select').val();
+    formData += '&filling=' + $('#filling-select').val();
+    formData += '&door-select=' + $('#door-select').val();
+    formData += '&order_pk=' + '{{ order_pk }}';
+    formData += '&miscalc_pk=' + '{{ miscalc_pk }}';
+    console.log(formData);
+
+    // Отправляем запрос на сервер
+    $.ajax({
+      type: 'POST',
+      url: '/calculation-form/',
+      data: formData,
+      success: function(response) {
+      // Redirect to a new page
+      window.location.href = '/miscalculation/{{ miscalc_pk }}/{{ order_pk }}/products/';
+    },
+      error: function(response) {
+        // Обрабатываем ошибку от сервера
+        alert('Просчет не был произведен.');
+      }
+    });
+  });
+});
+
+</script>
+
+
+
+<script>
+function addClickListener(blockId, selectId, className) {
+  const block = document.getElementById(blockId);
+  const select = document.getElementById(selectId);
+
+  block.addEventListener('click', function() {
+    select.selectedIndex = (select.selectedIndex + 1) % select.options.length;
+    $(className).trigger('change');
+  });
+}
+
+const elements = [
+  { blockId: 'one-sash-1', selectId: 'one-sash-select', className: '.one-1-model' },
+  { blockId: 'two-sash-1', selectId: 'two-sash-select-1', className: '.two-1-model' },
+  { blockId: 'two-sash-2', selectId: 'two-sash-select-2', className: '.two-2-model' },
+  { blockId: 'three-sash-1', selectId: 'three-sash-select-1', className: '.three-1-model' },
+  { blockId: 'three-sash-2', selectId: 'three-sash-select-2', className: '.three-2-model' },
+  { blockId: 'three-sash-3', selectId: 'three-sash-select-3', className: '.three-3-model' },
+  { blockId: 'four-sash-1', selectId: 'four-sash-select-1', className: '.four-1-model' },
+  { blockId: 'four-sash-2', selectId: 'four-sash-select-2', className: '.four-2-model' },
+  { blockId: 'four-sash-3', selectId: 'four-sash-select-3', className: '.four-3-model' },
+  { blockId: 'four-sash-4', selectId: 'four-sash-select-4', className: '.four-4-model' },
+  { blockId: 'door-sash', selectId: 'door-select', className: '.door-model' },
+];
+
+elements.forEach(({ blockId, selectId, className }) => {
+  addClickListener(blockId, selectId, className);
+});
+
+</script>
